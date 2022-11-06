@@ -2,6 +2,8 @@ package com.example.shop;
 
 import static android.app.PendingIntent.getActivity;
 
+import static com.example.shop.Functions.isValidEmailAddress;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,7 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -44,53 +47,18 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Dialog signUp;
 
+
+    TextView tv;
+
+    Button btn_cancel, btn_signUp;
     EditText et_firstName, et_lastName, et_password, et_email;
-    TextView tv, tv_signUp_title;
-    private FirebaseAuth mAuth;
-    Dialog d = openSignUpDialog();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
-        et_firstName = d.findViewById(R.id.et_fistName);
-        et_lastName = d.findViewById(R.id.et_lastName);
-        et_password = d.findViewById(R.id.et_password);
-        et_email = d.findViewById(R.id.et_email);
-        tv_signUp_title= d.findViewById(R.id.tv_signUp_title);
-        mAuth = FirebaseAuth.getInstance();
     }
-
-
-
-/*    public void signUpDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("sign up");
-        builder.setMessage("are you sure?");
-        builder.setCancelable(true);
-        builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse("https://orteil.dashnet.org/cookieclicker/"));
-                startActivity(it);
-            }
-        });
-        builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-        signUp = builder.create();
-        signUp.show();
-    }*/  // delete
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,60 +70,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_signUp) {
-
-            d.show();
-
+            openSignUpDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private Dialog openSignUpDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_sign_up, null);
-        builder.setView(view).setPositiveButton("signup", new DialogInterface.OnClickListener() {
+    private void openSignUpDialog() {
+        Dialog builder = new Dialog(MainActivity.this);
+        builder.setContentView(R.layout.dialog_sign_up);
+        builder.setCancelable(true);
+
+
+        btn_signUp = builder.findViewById(R.id.btn_signUp);
+        btn_cancel = builder.findViewById(R.id.btn_cancel);
+        et_firstName = builder.findViewById(R.id.et_fistName);
+        et_lastName = builder.findViewById(R.id.et_lastName);
+        et_password = builder.findViewById(R.id.et_password);
+        et_email = builder.findViewById(R.id.et_email);
+
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View v) {
+                builder.cancel();
+            }
+        });
 
-                if (!et_firstName.getText().toString().equals("") && !et_lastName.getText().toString().equals("") && !et_password.getText().toString().equals("") && !et_email.getText().toString().equals("")) {
-                    tv.setText("" + et_firstName.getText().toString() + et_lastName.getText().toString() + et_password.getText().toString() + et_email.getText().toString());
-                    Person person = new Person(et_firstName.getText().toString(), et_lastName.getText().toString(), et_password.getText().toString(), et_email.getText().toString());
-                    mAuth.createUserWithEmailAndPassword(et_email.getText().toString(), et_password.getText().toString())
-                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        btn_signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str_firstName = et_firstName.getText().toString();
+                String str_lastName = et_lastName.getText().toString();
+                String str_password = et_password.getText().toString();
+                String str_email = et_email.getText().toString();
 
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task)
-                                {
-                                   // tv_signUp_title= d.findViewById(R.id.tv_signUp_title);
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                //check if et is empty
+                if (str_firstName.equals("")) {
+                    Toast.makeText(MainActivity.this, "ENTER FIRST NAME", Toast.LENGTH_SHORT).show();
+                }
+                else if (str_lastName.equals("")) {
+                    Toast.makeText(MainActivity.this, "ENTER LAST NAME", Toast.LENGTH_SHORT).show();
+                }
+                else if (str_email.equals("")|| !isValidEmailAddress(str_email)) {
+                    Toast.makeText(MainActivity.this, "ENTER AN VALID EMAIL", Toast.LENGTH_SHORT).show();
+                }
+                else  if (str_password.equals("")) {
+                    Toast.makeText(MainActivity.this, "ENTER PASSWORD", Toast.LENGTH_SHORT).show();
+                }
+                else{ //all valid info
 
-                                    } else {
-                                        tv_signUp_title.setText("Sign Up Failed");
-                                    }
-                                }
-                            });
-
+                    builder.cancel();
+                    Toast.makeText(MainActivity.this, "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
 
                 }
 
-            }
-        });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         });
 
-        return builder.create();
-
-
+        builder.create();
+        builder.show();
     }
+
 
     @Override
     public void onClick(View view) {
+        startActivity(new Intent(this, TestActivity.class));
+
 
     }
+
+
+
+
 }
