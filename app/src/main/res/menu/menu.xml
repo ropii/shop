@@ -9,6 +9,7 @@
         />
     <item android:id="@+id/menu_disconnect"
         android:title="disconnect"
+        android:visible="false"
         />
 
 </menu>

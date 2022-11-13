@@ -34,17 +34,15 @@ public class BasicActivity extends AppCompatActivity {
     String str_password;
     String str_email;
 
-    MenuItem menu_signUp,menu_signIn;
+    MenuItem menu_signUp,menu_disconnect;
 
 
     //מזמן MENU
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        menu_signIn = findViewById(R.id.menu_signIn);
-        if (isSignIn()){
-//            menu_signIn.setVisible(false);
-        }
+
+
         return true;
     }
 
@@ -52,6 +50,7 @@ public class BasicActivity extends AppCompatActivity {
     // בתוך MENU
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         int id = item.getItemId();
         if (id == R.id.menu_signUp) {
             openSignUpDialog();
