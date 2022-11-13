@@ -1,9 +1,11 @@
 package com.example.shop;
 
 import static android.content.ContentValues.TAG;
+import static com.example.shop.Functions.isSignIn;
 import static com.example.shop.Functions.isValidEmailAddress;
 
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -32,12 +34,17 @@ public class BasicActivity extends AppCompatActivity {
     String str_password;
     String str_email;
 
+    MenuItem menu_signUp,menu_signIn;
 
 
     //מזמן MENU
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        menu_signIn = findViewById(R.id.menu_signIn);
+        if (isSignIn()){
+//            menu_signIn.setVisible(false);
+        }
         return true;
     }
 
@@ -96,7 +103,6 @@ public class BasicActivity extends AppCompatActivity {
                 if (validInfo) {   //info is valid
 
                     builder.cancel();
-
                     logIn();
 
                 }
@@ -175,11 +181,32 @@ public class BasicActivity extends AppCompatActivity {
     }
 
 
+
+
                                                                                    // פעולות
 
     // התחברות
     public void logIn(){
 
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInWithEmailAndPassword(str_email, str_password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(BasicActivity.this, "logged in.",Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(BasicActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
     }
 

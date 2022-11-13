@@ -2,7 +2,9 @@ package com.example.shop;
 
 import static android.app.PendingIntent.getActivity;
 
+import static com.example.shop.Functions.isSignIn;
 import static com.example.shop.Functions.isValidEmailAddress;
+import static com.example.shop.Functions.returnUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,20 +53,21 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     TextView tv;
 
-    Button btn_cancel, btn_signUp;
-    EditText et_firstName, et_lastName, et_password, et_email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
+
     }
 
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(this, TestActivity.class));
 
+            tv.setText(isSignIn()+"");
+          //  startActivity(new Intent(this, TestActivity.class));
 
     }
 
