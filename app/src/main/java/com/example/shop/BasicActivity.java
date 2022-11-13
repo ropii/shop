@@ -34,18 +34,33 @@ public class BasicActivity extends AppCompatActivity {
     String str_password;
     String str_email;
 
-    MenuItem menu_signUp,menu_disconnect;
+    static Menu globalMenu = null;
+    MenuItem menu_signUp,menu_disconnect,menu_signIn;
 
 
     //מזמן MENU
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
-
+        globalMenu = menu;
         return true;
     }
 
+
+    //מעדכן את נראות הITEMS בMENU
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu_disconnect = globalMenu.findItem(R.id.menu_disconnect);
+        menu_disconnect.setVisible(isSignIn());
+
+        menu_signIn = globalMenu.findItem(R.id.menu_signIn);
+        menu_signIn.setVisible(!isSignIn());
+
+        menu_signUp = globalMenu.findItem(R.id.menu_signUp);
+        menu_signUp.setVisible(!isSignIn());
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     // בתוך MENU
     @Override
@@ -91,7 +106,7 @@ public class BasicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 builder.cancel();
-                }
+            }
         });
 
         builder.create();
@@ -201,7 +216,7 @@ public class BasicActivity extends AppCompatActivity {
                 if (str_password.equals("") ||str_password.length()<6) {
                     et_password.setError("ENTER PASSWORD (6 chars)");
                 }
-                 Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_firstName.equals("") &&  !str_lastName.equals("") &&  !str_email.equals("") &&  !str_password.equals("");
+                Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_firstName.equals("") &&  !str_lastName.equals("") &&  !str_email.equals("") &&  !str_password.equals("");
                 if (validInfo) {   //info is valid
 
                     builder.cancel();
@@ -221,7 +236,9 @@ public class BasicActivity extends AppCompatActivity {
 
 
 
-                                                                                   // פעולות
+
+
+                                                                     // פעולות
 
     // התחברות
     public void logIn(){
@@ -254,20 +271,20 @@ public class BasicActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         mAuth.createUserWithEmailAndPassword(str_email, str_password).addOnCompleteListener(BasicActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(BasicActivity.this, "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(BasicActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    Toast.makeText(BasicActivity.this, "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(BasicActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
     }
