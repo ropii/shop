@@ -3,6 +3,9 @@
 
     <item android:id="@+id/menu_signUp"
         android:title="sign up"
-        >
-    </item>
+        />
+    <item android:id="@+id/menu_signIn"
+        android:title="sign in"
+        />
+
 </menu>

@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class BasicActivity extends AppCompatActivity {
 
-    Button btn_cancel, btn_signUp;
+    Button btn_cancel, btn_signUp,btn_logIn;
     EditText et_firstName, et_lastName, et_password, et_email;
     private FirebaseAuth mAuth;
     String str_firstName;
@@ -32,19 +32,83 @@ public class BasicActivity extends AppCompatActivity {
     String str_password;
     String str_email;
 
+
+
+    //מזמן MENU
     @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {   //מזמן MENU
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
+
+    // בתוך MENU
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {    // בתוך MENU
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_signUp) {
             openSignUpDialog();
         }
+        if (id == R.id.menu_signIn) {
+            openSignInDialog();
+        }
         return true;
+    }
+
+
+    //דיאלוג של התחברות
+    private void openSignInDialog() {
+
+
+        Dialog builder = new Dialog(BasicActivity.this);
+        builder.setContentView(R.layout.dialog_sign_in);
+        builder.setCancelable(true);
+
+
+        et_password = builder.findViewById(R.id.et_password);
+        btn_cancel = builder.findViewById(R.id.btn_cancel);
+        et_email = builder.findViewById(R.id.et_email);
+        btn_logIn = builder.findViewById(R.id.btn_logIn);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.cancel();
+            }
+        });
+
+        btn_logIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                str_password = et_password.getText().toString();
+                str_email = et_email.getText().toString();
+
+                //check if et is empty
+                if (str_email.equals("") || !isValidEmailAddress(str_email)) {
+                    et_email.setError("ENTER A VALID EMAIL ");
+
+                }
+                if (str_password.equals("") ||str_password.length()<6) {
+                    et_password.setError("ENTER PASSWORD (6 chars)");
+                }
+                Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_email.equals("") &&  !str_password.equals("");
+                if (validInfo) {   //info is valid
+
+                    builder.cancel();
+
+                    logIn();
+
+                }
+
+
+            }
+        });
+
+        builder.create();
+        builder.show();
+
+
     }
 
 
@@ -73,7 +137,6 @@ public class BasicActivity extends AppCompatActivity {
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance();
                 str_firstName = et_firstName.getText().toString();
                 str_lastName = et_lastName.getText().toString();
                 str_password = et_password.getText().toString();
@@ -112,8 +175,15 @@ public class BasicActivity extends AppCompatActivity {
     }
 
 
-    // פעולות
+                                                                                   // פעולות
 
+    // התחברות
+    public void logIn(){
+
+
+    }
+
+    // שליחת אימייל וסיסמא לפייר-בייס
     public void registerUser() {
 
         mAuth = FirebaseAuth.getInstance();
