@@ -45,7 +45,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BasicActivity implements View.OnClickListener {
 
 
 
@@ -58,80 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_signUp) {
-            openSignUpDialog();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void openSignUpDialog() {
-        Dialog builder = new Dialog(MainActivity.this);
-        builder.setContentView(R.layout.dialog_sign_up);
-        builder.setCancelable(true);
-
-
-        btn_signUp = builder.findViewById(R.id.btn_signUp);
-        btn_cancel = builder.findViewById(R.id.btn_cancel);
-        et_firstName = builder.findViewById(R.id.et_fistName);
-        et_lastName = builder.findViewById(R.id.et_lastName);
-        et_password = builder.findViewById(R.id.et_password);
-        et_email = builder.findViewById(R.id.et_email);
-
-
-
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.cancel();
-            }
-        });
-
-        btn_signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str_firstName = et_firstName.getText().toString();
-                String str_lastName = et_lastName.getText().toString();
-                String str_password = et_password.getText().toString();
-                String str_email = et_email.getText().toString();
-
-                //check if et is empty
-                if (str_firstName.equals("")) {
-                    Toast.makeText(MainActivity.this, "ENTER FIRST NAME", Toast.LENGTH_SHORT).show();
-                }
-                else if (str_lastName.equals("")) {
-                    Toast.makeText(MainActivity.this, "ENTER LAST NAME", Toast.LENGTH_SHORT).show();
-                }
-                else if (str_email.equals("")|| !isValidEmailAddress(str_email)) {
-                    Toast.makeText(MainActivity.this, "ENTER AN VALID EMAIL", Toast.LENGTH_SHORT).show();
-                }
-                else  if (str_password.equals("")) {
-                    Toast.makeText(MainActivity.this, "ENTER PASSWORD", Toast.LENGTH_SHORT).show();
-                }
-                else{ //all valid info
-
-                    builder.cancel();
-                    Toast.makeText(MainActivity.this, "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        });
-
-        builder.create();
-        builder.show();
     }
 
 
