@@ -258,7 +258,7 @@ public class BasicActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(BasicActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BasicActivity.this, "logged in failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
