@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class BasicActivity extends AppCompatActivity {
 
-    Button btn_cancel, btn_signUp,btn_logIn;
+    Button btn_cancel, btn_signUp,btn_logIn , btn_disconnect;
     EditText et_firstName, et_lastName, et_password, et_email;
     private FirebaseAuth mAuth;
     String str_firstName;
@@ -59,7 +59,46 @@ public class BasicActivity extends AppCompatActivity {
         if (id == R.id.menu_signIn) {
             openSignInDialog();
         }
+        if (id == R.id.menu_disconnect) {
+            openDisconnectDialog();
+        }
         return true;
+    }
+
+
+
+
+    //דיאלוג של התנתקות
+    private void openDisconnectDialog() {
+
+        Dialog builder = new Dialog(BasicActivity.this);
+        builder.setContentView(R.layout.dialog_disconnect);
+        builder.setCancelable(true);
+
+
+        btn_cancel = builder.findViewById(R.id.btn_cancel);
+        btn_disconnect = builder.findViewById(R.id.btn_disconnect);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.cancel();
+            }
+        });
+
+        btn_disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                builder.cancel();
+                }
+        });
+
+        builder.create();
+        builder.show();
+
+
     }
 
 
@@ -210,7 +249,7 @@ public class BasicActivity extends AppCompatActivity {
 
     }
 
-    // שליחת אימייל וסיסמא לפייר-בייס
+    // שליחת אימייל וסיסמא לפייר-בייס (הרשמה)
     public void registerUser() {
 
         mAuth = FirebaseAuth.getInstance();

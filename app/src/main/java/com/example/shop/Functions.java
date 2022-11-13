@@ -18,7 +18,7 @@ public class Functions {
     public static boolean isSignIn(){
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
-        return mAuth.getCurrentUser() == null;
+        return mAuth.getCurrentUser() != null;
     }
 
     public static FirebaseUser returnUser(){

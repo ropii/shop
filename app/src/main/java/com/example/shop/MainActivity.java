@@ -65,8 +65,12 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-
+        if (isSignIn()){
+            tv.setText(returnUser().getEmail());
+        }
+        else{
             tv.setText(isSignIn()+"");
+        }
           //  startActivity(new Intent(this, TestActivity.class));
 
     }
