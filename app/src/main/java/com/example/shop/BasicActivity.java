@@ -19,10 +19,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BasicActivity extends AppCompatActivity {
 
@@ -36,6 +43,7 @@ public class BasicActivity extends AppCompatActivity {
 
     static Menu globalMenu = null;
     MenuItem menu_signUp,menu_disconnect,menu_signIn;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     //מזמן MENU
@@ -220,8 +228,8 @@ public class BasicActivity extends AppCompatActivity {
                 if (validInfo) {   //info is valid
 
                     builder.cancel();
-                    // Person p = new Person(str_firstName, str_lastName, str_email, str_password);
-                    registerUser();
+                    Person p = new Person(str_firstName, str_lastName, str_email, str_password);
+                    registerUser(p);
 
                 }
 
@@ -266,7 +274,7 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     // שליחת אימייל וסיסמא לפייר-בייס (הרשמה)
-    public void registerUser() {
+    public void registerUser(Person p) {
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -285,6 +293,15 @@ public class BasicActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+
+        // הוספת הפרטים למשתמש
+
+
+        Map<String, Person> user = new HashMap<>();
+        user.put(p.getEmail(), p);
+        db.collection("users").document(p.getEmail()+"").set(user);
 
 
     }

@@ -3,54 +3,24 @@ package com.example.shop;
 import static android.app.PendingIntent.getActivity;
 
 import static com.example.shop.Functions.isSignIn;
-import static com.example.shop.Functions.isValidEmailAddress;
 import static com.example.shop.Functions.returnUser;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.ClipData;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.os.Bundle;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDialog;
-import androidx.appcompat.app.AppCompatDialogFragment;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends BasicActivity implements View.OnClickListener {
 
 
-
+    Person p;
     TextView tv;
 
 
@@ -66,12 +36,40 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (isSignIn()){
-            tv.setText(returnUser().getEmail());
+            DocumentReference docRef = db.collection("users").document(returnUser().getEmail()+"");
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    HashMap<String,String> map=new HashMap<String,String>();
+                    String email,firstName,password, lastName;
+                    for(Map.Entry<String, String> entry:map.entrySet()){
+                        if (entry.getKey().equals("email")){
+                            email= entry.getValue();
+                        }
+                        if (entry.getKey().equals("firstName")){
+                            firstName= entry.getValue();
+                        }
+                        if (entry.getKey().equals("password")){
+                            password= entry.getValue();
+                        }
+                        if (entry.getKey().equals("lastName")){
+                            lastName= entry.getValue();
+                        }
+                    }
+                    afterGetPerson();
+                }
+            });
+            // צריך לקבל את האיש שאיחסנתי בפייר-סטור
         }
         else{
             tv.setText(isSignIn()+"");
         }
           //  startActivity(new Intent(this, TestActivity.class));
+
+    }
+    public void afterGetPerson(){
+        tv.setText(""+p.getFirstName());
+
 
     }
 

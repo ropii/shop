@@ -1,13 +1,22 @@
 package com.example.shop;
 
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Functions {
-
+    static  Person p=null;
     // בודקת את תקינות האימייל
     public static boolean isValidEmailAddress(String email) {
         String regex = "^(.+)@(.+)$";
@@ -36,6 +45,28 @@ public class Functions {
         }
     }
 
+
+    public static Person returnP2(){
+        return p;
+    }
+
+    // מחזיר את האיש המחובר(אם משתמש לא מחובר מחזיר NULL)
+    public static void returnPerson(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (isSignIn()){
+
+            DocumentReference docRef = db.collection("users").document(returnUser().getEmail()+"");
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                     p = documentSnapshot.toObject(Person.class);
+
+                }
+            });
+
+        }
+
+    }
 
 
 
