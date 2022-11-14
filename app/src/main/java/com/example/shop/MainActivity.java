@@ -33,6 +33,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     }
 
 
+    // אמור לקבל את האיש מהפייר-בייס, נדב אמור לתקן את הלולאה
+
     @Override
     public void onClick(View view) {
         if (isSignIn()){
@@ -40,8 +42,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    HashMap<String,String> map=new HashMap<String,String>();
-                    String email,firstName,password, lastName;
+                    HashMap<String,String> map= (HashMap<String,Object>)documentSnapshot.getR();
+                    String email="",firstName="",password="", lastName="";
                     for(Map.Entry<String, String> entry:map.entrySet()){
                         if (entry.getKey().equals("email")){
                             email= entry.getValue();
@@ -56,6 +58,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                             lastName= entry.getValue();
                         }
                     }
+                    p = new Person(firstName,lastName,email,password);
                     afterGetPerson();
                 }
             });
