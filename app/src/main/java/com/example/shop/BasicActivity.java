@@ -299,9 +299,7 @@ public class BasicActivity extends AppCompatActivity {
         // הוספת הפרטים למשתמש
 
 
-        Map<String, Person> user = new HashMap<>();
-        user.put(p.getEmail(), p);
-        db.collection("users").document(p.getEmail()+"").set(user);
+        db.collection("users").document(p.getEmail()+"").set(p);
 
 
     }
