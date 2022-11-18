@@ -52,7 +52,7 @@ public class Functions {
 
 
     //מעדכן את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) לאיש שמחובר
-    public static void setPerson(){
+    private static void setPerson(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (isSignIn()){
 
