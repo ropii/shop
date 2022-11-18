@@ -11,7 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Functions {
+
     static  Person generalConnectedPerson=null;
+
     // בודקת את תקינות האימייל
     public static boolean isValidEmailAddress(String email) {
         String regex = "^(.+)@(.+)$";
