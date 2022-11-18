@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Functions {
-    static  Person p=null;
+    static  Person generalConnectedPerson=null;
     // בודקת את תקינות האימייל
     public static boolean isValidEmailAddress(String email) {
         String regex = "^(.+)@(.+)$";
@@ -46,28 +46,27 @@ public class Functions {
     }
 
 
-    public static Person returnP2(){
-        return p;
+    //מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS)
+    public static Person returnConnectedPerson(){
+        setP();
+        return generalConnectedPerson;
     }
 
-    // מחזיר את האיש המחובר(אם משתמש לא מחובר מחזיר NULL)
-    public static void returnPerson(){
+
+
+    //מעדכן את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) לאיש שמחובר
+    public static void setP(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (isSignIn()){
 
-            DocumentReference docRef = db.collection("users").document(returnUser().getEmail()+"");
+            DocumentReference docRef = db.collection("users").document(returnUser().getEmail());
             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                     p = documentSnapshot.toObject(Person.class);
-
+                    Functions.generalConnectedPerson = documentSnapshot.toObject(Person.class);
                 }
             });
-
         }
-
     }
-
-
 
 }

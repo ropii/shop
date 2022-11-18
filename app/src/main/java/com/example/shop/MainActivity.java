@@ -3,7 +3,9 @@ package com.example.shop;
 import static android.app.PendingIntent.getActivity;
 
 import static com.example.shop.Functions.isSignIn;
+import static com.example.shop.Functions.returnConnectedPerson;
 import static com.example.shop.Functions.returnUser;
+import static com.example.shop.Functions.setP;
 
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends BasicActivity implements View.OnClickListener {
 
 
-    static Person connectedPerson =null;
-    static City city=null;
+     Person p =null;
 
     TextView tv;
 
@@ -29,7 +30,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
-        setP();
 
 
 
@@ -38,9 +38,9 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        setP();
-        if (connectedPerson !=null){
-            tv.setText(connectedPerson.getFirstName());
+        p = returnConnectedPerson();
+        if (p !=null){
+            tv.setText(p.getFirstName() +"\n" + p.getLastName() +"\n" + p.getEmail());
         }
         else {
             tv.setText(isSignIn()+"");
@@ -53,19 +53,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     }
 
 
-    public static void setP(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        if (isSignIn()){
-
-            DocumentReference docRef = db.collection("users").document(returnUser().getEmail());
-            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    MainActivity.connectedPerson = documentSnapshot.toObject(Person.class);
-                }
-            });
-        }
-    }
 
 
 
