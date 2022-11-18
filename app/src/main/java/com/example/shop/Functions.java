@@ -1,16 +1,11 @@
 package com.example.shop;
 
-import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,14 +43,14 @@ public class Functions {
 
     //מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS)
     public static Person returnConnectedPerson(){
-        setP();
+        setPerson();
         return generalConnectedPerson;
     }
 
 
 
     //מעדכן את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) לאיש שמחובר
-    public static void setP(){
+    public static void setPerson(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (isSignIn()){
 

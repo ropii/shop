@@ -4,17 +4,10 @@ import static android.app.PendingIntent.getActivity;
 
 import static com.example.shop.Functions.isSignIn;
 import static com.example.shop.Functions.returnConnectedPerson;
-import static com.example.shop.Functions.returnUser;
-import static com.example.shop.Functions.setP;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class MainActivity extends BasicActivity implements View.OnClickListener {
