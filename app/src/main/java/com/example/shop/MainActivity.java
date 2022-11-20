@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class MainActivity extends BasicActivity implements View.OnClickListener {
 
 
-     Person p =null;
+     static Person p =null;
 
     TextView tv;
 
@@ -23,6 +23,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tv = findViewById(R.id.tv);
+        p = returnConnectedPerson();
 
 
 
