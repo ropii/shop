@@ -17,6 +17,12 @@ public class Buyer extends Person{
         this.zip = zip;
     }
 
+    public Buyer(Person p, CreditCard card, int zip) {
+        super(p.getFirstName(), p.getLastName(), p.getEmail(), p.getPassword());
+        this.card = card;
+        this.zip = zip;
+    }
+
     public CreditCard getCard() {
         return card;
     }

@@ -42,7 +42,7 @@ public class BasicActivity extends AppCompatActivity {
     String str_email;
 
     static Menu globalMenu = null;
-    MenuItem menu_signUp,menu_disconnect,menu_signIn;
+    MenuItem menu_signUp,menu_disconnect,menu_signIn,menu_accSettings;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -67,6 +67,9 @@ public class BasicActivity extends AppCompatActivity {
         menu_signUp = globalMenu.findItem(R.id.menu_signUp);
         menu_signUp.setVisible(!isSignIn());
 
+        menu_accSettings = globalMenu.findItem(R.id.menu_accSettings);
+        menu_disconnect.setVisible(isSignIn());
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -83,6 +86,9 @@ public class BasicActivity extends AppCompatActivity {
         }
         if (id == R.id.menu_disconnect) {
             openDisconnectDialog();
+        }
+        if (id == R.id.menu_accSettings) {
+            startActivity(new Intent(this, AccountSettingsActivity.class));;
         }
         return true;
     }

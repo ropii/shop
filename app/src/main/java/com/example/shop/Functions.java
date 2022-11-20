@@ -66,4 +66,17 @@ public class Functions {
         }
     }
 
+    public static void test(){
+        Date date = new Date(12,2022);
+        CreditCard card = new CreditCard(1,2,date);
+        Person p = new Person("name","family","gmail","pass");
+        Person p2 = new Person("name2","family","gmail","pass");
+        Person p3 = new Person("name3","family","gmail","pass");
+        Buyer b1 = new Buyer(p,card,123);
+        Buyer b2 = new Buyer(p2,card,234);
+        Seller s1 = new Seller("seller1","sell family","1@g.com","pass",card,345);
+        Person pArr[] = new Person[]{p2,b1,s1};
+
+    }
+
 }

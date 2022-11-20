@@ -13,4 +13,8 @@ public class Seller extends Buyer{
     public Seller(String firstName, String lastName, String email, String password, CreditCard card, int zip) {
         super(firstName, lastName, email, password, card, zip);
     }
+    public Seller(Buyer buyer) {
+        super(buyer.getFirstName(), buyer.getLastName(), buyer.getEmail(), buyer.getPassword(), buyer.card, buyer.zip);
+    }
+
 }
