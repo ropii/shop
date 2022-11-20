@@ -24,8 +24,10 @@
             android:scaleType="fitXY"
             android:src="@drawable/acc_img"
             android:layout_margin="20dp"
+            android:id="@+id/imb_account"
             />
         <ImageButton
+            android:id="@+id/imb_cart"
             android:layout_margin="20dp"
             android:src="@drawable/cart_img"
             android:background="#00FFFFFF"
@@ -34,6 +36,7 @@
             android:scaleType="fitXY"
             />
         <ImageButton
+            android:id="@+id/imb_history"
             android:layout_margin="20dp"
             android:background="#00FFFFFF"
             android:layout_width="450px"
@@ -42,10 +45,11 @@
             android:scaleType="fitXY"
             />
         <ImageButton
+            android:id="@+id/imb_product"
             android:layout_width="450px"
             android:background="#00FFFFFF"
             android:layout_height="450px"
-            android:src="@drawable/prudoct_img"
+            android:src="@drawable/product_img"
             android:scaleType="fitXY"
             android:layout_margin="20dp"
 
