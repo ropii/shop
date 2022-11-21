@@ -34,7 +34,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
     public void onClick(View view) {
         p = returnConnectedPerson();
         if (p !=null){
-            tv.setText(p.getFirstName() +"\n" + p.getLastName() +"\n" + p.getEmail());
+            tv.setText(p.getFirstName() +"\n" + p.getLastName() +"\n" + p.getEmail()+"\n" + p.getPassword());
         }
         else {
             tv.setText(isSignIn()+"");

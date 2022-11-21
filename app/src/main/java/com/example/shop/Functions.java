@@ -64,6 +64,9 @@ public class Functions {
                 }
             });
         }
+        else {
+            Functions.generalConnectedPerson=null;
+        }
     }
 
     public static void test(){

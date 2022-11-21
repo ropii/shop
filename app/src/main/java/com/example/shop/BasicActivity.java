@@ -170,7 +170,7 @@ public class BasicActivity extends AppCompatActivity {
                 if (validInfo) {   //info is valid
 
                     builder.cancel();
-                    logIn();
+                    logIn(str_email,str_password);
 
                 }
 
@@ -255,11 +255,11 @@ public class BasicActivity extends AppCompatActivity {
                                                                      // פעולות
 
     // התחברות
-    public void logIn(){
+    public void logIn(String email, String password){
 
         mAuth = FirebaseAuth.getInstance();
 
-        mAuth.signInWithEmailAndPassword(str_email, str_password)
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -1,28 +1,40 @@
 package com.example.shop;
 
+import static android.content.ContentValues.TAG;
 import static com.example.shop.Functions.isValidEmailAddress;
 import static com.example.shop.Functions.returnConnectedPerson;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+
 public class AccountSettingsActivity extends BasicActivity implements View.OnClickListener {
 
     ImageButton imb_product,imb_cart,imb_history,imb_account;
-    Person p=MainActivity.p;
+    Person person=MainActivity.p;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
-        if (p==null){
-            p=returnConnectedPerson();
+        if (person==null){
+            person=returnConnectedPerson();
         }
 
         imb_product = findViewById(R.id.imb_product);
@@ -39,7 +51,8 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
 
 
         private void openAccInfoDialog() {
-        Dialog builder = new Dialog(AccountSettingsActivity.this);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Dialog builder = new Dialog(AccountSettingsActivity.this);
         builder.setContentView(R.layout.dialog_update_info);
         builder.setCancelable(true);
 
@@ -52,11 +65,13 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
         et_email = builder.findViewById(R.id.et_email);
         EditText et_current_password = builder.findViewById(R.id.et_current_password);
 
-            et_firstName.setText(p.getFirstName());
-            et_lastName.setText(p.getLastName());
-            et_password.setText(p.getPassword());
-            et_email.setText(p.getEmail());
+            et_firstName.setText(person.getFirstName());
+            et_lastName.setText(person.getLastName());
+            et_password.setText(person.getPassword());
+            et_email.setText(person.getEmail());
 
+            et_email.setEnabled(false);
+            et_email.setInputType(InputType.TYPE_NULL);
 
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,16 +105,46 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
                 }
                 Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_firstName.equals("") &&  !str_lastName.equals("") &&  !str_email.equals("") &&  !str_password.equals("");
                 if (validInfo) {   //info is valid
-                    if(et_current_password.getText().toString().equals(p.getPassword())){
-                    builder.cancel();
-                    Person p = new Person(str_firstName, str_lastName, str_email, str_password);
-                    //registerUser(p);
-
-                    db.collection("users").document(p.getEmail()+"").set(p);
+                    if(et_current_password.getText().toString().equals(person.getPassword())){
 
 
+                    db.collection("users").document(str_email).set(new Person(str_firstName, str_lastName, str_email, str_password));
 
-                }
+                        if (!str_password.equals(person.getPassword())) {
+
+
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            // Get auth credentials from the user for re-authentication
+                            AuthCredential credential = EmailAuthProvider
+                                    .getCredential(str_email, person.getPassword()); // Current Login Credentials \\
+                            // Prompt the user to re-provide their sign-in credentials
+                            user.reauthenticate(credential)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Log.d(TAG, "User re-authenticated.");
+                                            //Now change your email address \\
+                                            //----------------Code for Changing Email Address----------\\
+                                            user.updatePassword(str_password)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Log.d("change password tag", "User password address updated.");
+                                                            }
+                                                        }
+                                                    });
+                                            //----------------------------------------------------------\\
+                                        }
+                                    });
+                        }
+
+
+
+                        builder.cancel();
+                        Toast.makeText(AccountSettingsActivity.this,"info saved",Toast.LENGTH_LONG).show();
+
+                    }
                     else {
                         Toast.makeText(AccountSettingsActivity.this,"pls enter the password",Toast.LENGTH_LONG).show();
                     }
