@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class Functions {
 
-    static  Person generalConnectedPerson=null;
+    static  Object generalConnectedPerson=null;
 
     // בודקת את תקינות האימייל
     public static boolean isValidEmailAddress(String email) {
@@ -46,7 +46,16 @@ public class Functions {
     //מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS)
     public static Person returnConnectedPerson(){
         setPerson();
-        return generalConnectedPerson;
+        if (generalConnectedPerson .getClass()==Buyer.class){
+           return  ((Buyer) generalConnectedPerson);
+        }
+        if (generalConnectedPerson .getClass()==Seller.class){
+            return  ((Seller) generalConnectedPerson);
+        }
+        if (generalConnectedPerson .getClass()==Person.class){
+            return  ((Person) generalConnectedPerson);
+        }
+        return null;
     }
 
 
@@ -79,6 +88,11 @@ public class Functions {
         Buyer b2 = new Buyer(p2,card,234);
         Seller s1 = new Seller("seller1","sell family","1@g.com","pass",card,345);
         Person pArr[] = new Person[]{p2,b1,s1};
+        Object tr=new Person("name","family","gmail","pass");
+        if (tr .getClass()==Buyer.class){
+            ((Buyer) tr).getOrders();
+        }
+
 
     }
 
