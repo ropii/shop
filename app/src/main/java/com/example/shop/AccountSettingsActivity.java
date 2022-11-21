@@ -21,6 +21,9 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
+        if (p==null){
+            p=returnConnectedPerson();
+        }
 
         imb_product = findViewById(R.id.imb_product);
         imb_cart = findViewById(R.id.imb_cart);
@@ -91,6 +94,9 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
                     builder.cancel();
                     Person p = new Person(str_firstName, str_lastName, str_email, str_password);
                     //registerUser(p);
+
+                    db.collection("users").document(p.getEmail()+"").set(p);
+
 
 
                 }

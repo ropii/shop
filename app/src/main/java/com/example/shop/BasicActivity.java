@@ -291,6 +291,7 @@ public class BasicActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success");
                     FirebaseUser user = mAuth.getCurrentUser();
+                    db.collection("users").document(p.getEmail()+"").set(p);          // הוספת הפרטים למשתמש
                     Toast.makeText(BasicActivity.this, "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                 } else {
                     // If sign in fails, display a message to the user.
@@ -302,10 +303,8 @@ public class BasicActivity extends AppCompatActivity {
 
 
 
-        // הוספת הפרטים למשתמש
 
 
-        db.collection("users").document(p.getEmail()+"").set(p);
 
 
     }
