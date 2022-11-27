@@ -43,7 +43,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
 
 
-            startActivity(new Intent(this, TestActivity.class));
+          //  startActivity(new Intent(this, TestActivity.class));
 
     }
 

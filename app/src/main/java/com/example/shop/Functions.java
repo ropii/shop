@@ -55,9 +55,6 @@ public class Functions {
         if (generalConnectedPerson.getClass()==Buyer.class){
            return  ((Buyer) generalConnectedPerson);
         }
-        if (generalConnectedPerson.getClass()==Seller.class){
-            return  ((Seller) generalConnectedPerson);
-        }
 
         return null;
     }
@@ -90,8 +87,7 @@ public class Functions {
         Person p3 = new Person("name3","family","gmail","pass");
         Buyer b1 = new Buyer(p,card,123);
         Buyer b2 = new Buyer(p2,card,234);
-        Seller s1 = new Seller("seller1","sell family","1@g.com","pass",card,345);
-        Person pArr[] = new Person[]{p2,b1,s1};
+        Person pArr[] = new Person[]{p2,b1};
         Object tr=new Person("name","family","gmail","pass");
         if (tr .getClass()==Buyer.class){
             ((Buyer) tr).getOrders();

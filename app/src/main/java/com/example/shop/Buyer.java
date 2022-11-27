@@ -8,7 +8,9 @@ public class Buyer extends Person{
     CreditCard card;
     int zip;
     private ArrayList<Product> history;
-
+    private ArrayList<Product> items;
+    private int money=0;
+    HashMap<Buyer, ArrayList<Product>> orders = new HashMap<Buyer, ArrayList<Product>>();
 
 
     public Buyer(String firstName, String lastName, String email, String password, CreditCard card, int zip) {
@@ -43,11 +45,6 @@ public class Buyer extends Person{
     }
 
 
-
-
-    private ArrayList<Product> items;
-    private int money=0;
-    HashMap<Buyer, ArrayList<Product>> orders = new HashMap<Buyer, ArrayList<Product>>();
 
 
     public ArrayList<Product> getItems() {

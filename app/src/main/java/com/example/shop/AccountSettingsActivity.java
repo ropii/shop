@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +26,9 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
+
+import java.util.Calendar;
+import java.util.Collections;
 
 public class AccountSettingsActivity extends BasicActivity implements View.OnClickListener {
 
@@ -56,6 +61,13 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
         builder.setContentView(R.layout.dialog_update_info);
         builder.setCancelable(true);
 
+            Integer[] months = { 1,2,3,4,5,6,7,8,9,10,11,12 };
+            Integer[] years =  new Integer[12];
+            int this_year = Calendar.getInstance().get(Calendar.YEAR);
+
+            for (int i = 0; i < years.length ; i++) {
+                years[i] = this_year + i;
+            }
 
         Button btn_update = builder.findViewById(R.id.btn_update);
         btn_cancel = builder.findViewById(R.id.btn_cancel);
@@ -63,7 +75,23 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
         et_lastName = builder.findViewById(R.id.et_lastName);
         et_password = builder.findViewById(R.id.et_password);
         et_email = builder.findViewById(R.id.et_email);
+        EditText et_zip = builder.findViewById(R.id.et_zip);
+        EditText et_cardNumber = builder.findViewById(R.id.et_cardNumber);
+        EditText et_cvc = builder.findViewById(R.id.et_cvc);
         EditText et_current_password = builder.findViewById(R.id.et_current_password);
+
+
+            Spinner spinner_mm = builder.findViewById(R.id.spinner_mm);
+            Spinner spinner_yy = builder.findViewById(R.id.spinner_yy);
+
+            ArrayAdapter ad = new ArrayAdapter(AccountSettingsActivity.this,android.R.layout.simple_spinner_item,months);
+            ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_mm.setPrompt("mm");
+          //  spinner_mm.setAdapter(ad);
+
+
+
+
 
             et_firstName.setText(person.getFirstName());
             et_lastName.setText(person.getLastName());
