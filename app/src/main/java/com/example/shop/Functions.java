@@ -46,15 +46,19 @@ public class Functions {
     //מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS)
     public static Person returnConnectedPerson(){
         setPerson();
-        if (generalConnectedPerson .getClass()==Buyer.class){
-           return  ((Buyer) generalConnectedPerson);
+        if(generalConnectedPerson==null){
+            return null;
         }
-        if (generalConnectedPerson .getClass()==Seller.class){
-            return  ((Seller) generalConnectedPerson);
-        }
-        if (generalConnectedPerson .getClass()==Person.class){
+        if (generalConnectedPerson.getClass()==Person.class){
             return  ((Person) generalConnectedPerson);
         }
+        if (generalConnectedPerson.getClass()==Buyer.class){
+           return  ((Buyer) generalConnectedPerson);
+        }
+        if (generalConnectedPerson.getClass()==Seller.class){
+            return  ((Seller) generalConnectedPerson);
+        }
+
         return null;
     }
 

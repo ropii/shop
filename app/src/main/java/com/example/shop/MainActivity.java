@@ -5,6 +5,7 @@ import static android.app.PendingIntent.getActivity;
 import static com.example.shop.Functions.isSignIn;
 import static com.example.shop.Functions.returnConnectedPerson;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
 
 
-          //  startActivity(new Intent(this, TestActivity.class));
+            startActivity(new Intent(this, TestActivity.class));
 
     }
 
