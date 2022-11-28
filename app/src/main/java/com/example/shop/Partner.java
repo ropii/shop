@@ -3,26 +3,36 @@ package com.example.shop;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Buyer extends Person{
+public class Partner extends Person{
 
     CreditCard card;
     int zip;
     private ArrayList<Product> history;
     private ArrayList<Product> items;
     private int money=0;
-    HashMap<Buyer, ArrayList<Product>> orders = new HashMap<Buyer, ArrayList<Product>>();
+    HashMap<String, String> orders = new HashMap<String, String>();
 
+    public HashMap<String, String> getOrders() {
+        return orders;
+    }
 
-    public Buyer(String firstName, String lastName, String email, String password, CreditCard card, int zip) {
+    public void setOrders(HashMap<String, String> orders) {
+        this.orders = orders;
+    }
+
+    public Partner(String firstName, String lastName, String email, String password, CreditCard card, int zip) {
         super(firstName, lastName, email, password);
         this.card = card;
         this.zip = zip;
     }
 
-    public Buyer(Person p, CreditCard card, int zip) {
+    public Partner(Person p, CreditCard card, int zip) {
         super(p.getFirstName(), p.getLastName(), p.getEmail(), p.getPassword());
         this.card = card;
         this.zip = zip;
+    }
+    public Partner(){
+
     }
 
     public CreditCard getCard() {
@@ -58,12 +68,6 @@ public class Buyer extends Person{
     }
     public void setMoney(int money) {
         this.money = money;
-    }
-    public HashMap<Buyer, ArrayList<Product>> getOrders() {
-        return orders;
-    }
-    public void setOrders(HashMap<Buyer, ArrayList<Product>> orders) {
-        this.orders = orders;
     }
 }
 

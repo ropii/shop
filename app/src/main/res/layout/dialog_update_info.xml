@@ -6,6 +6,16 @@
     android:orientation="vertical"
     >
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,5 +128,8 @@
         android:layout_marginBottom="20dp"
         />
 
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

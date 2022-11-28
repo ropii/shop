@@ -12,6 +12,10 @@ public class Date {
         this.day =0;
     }
 
+    public Date() {
+
+    }
+
     public Date(int day, int month, int year) {
         this.day = day;
         this.month = month;

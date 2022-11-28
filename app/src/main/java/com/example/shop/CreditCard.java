@@ -10,7 +10,8 @@ public class CreditCard {
         this.number = number;
         this.validation = validation;
     }
-
+    public CreditCard() {
+    }
     public int getCvc() {
         return cvc;
     }
