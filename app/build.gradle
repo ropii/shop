@@ -51,10 +51,13 @@ dependencies {
         kakao = '3.0.6'
     }
 
+
+    implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.31'
+
     implementation 'com.google.api:api-common:2.2.1'
     implementation 'com.google.firebase:firebase-firestore'
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.31'
 
 
     implementation platform('com.google.firebase:firebase-bom:31.0.2')

@@ -2,30 +2,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:title="account">
-
-        <menu
-            android:id="@+id/t"
-            android:title="menu">
 
             <item
                 android:id="@+id/menu_signUp"
-                android:title="sign up" />
+                android:title="sign up"
+                android:icon="@color/black"
+
+                />
             <item
                 android:id="@+id/menu_signIn"
                 android:title="sign in" />
 
             <item
                 android:id="@+id/menu_accSettings"
-                android:title="account settings" />
+                android:icon="@drawable/icon_person"
+                android:title="account" />
 
             <item
                 android:id="@+id/menu_disconnect"
                 android:title="sign out" />
 
-        </menu>
 
-    </item>
+
 
 
 </menu>
+
+
