@@ -45,7 +45,7 @@ public class Functions {
     }
 
 
-    //מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS)
+    // מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) ובעזרתו אפשר לגשת לנתונים הנימצאים בפייר-סטור
     public static Person returnConnectedPerson() {
         setPerson();
         return generalConnectedPerson;
@@ -78,6 +78,7 @@ public class Functions {
         }
     }
 
+    // בדיקת תכנות
     public static void test() {
         Date date = new Date(12, 2022);
         CreditCard card = new CreditCard(1, 2, date);

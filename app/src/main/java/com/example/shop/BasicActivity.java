@@ -73,7 +73,7 @@ public class BasicActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    // בתוך MENU
+    // בתוך MENU מציאת הITEM הנלחץ
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -117,7 +117,7 @@ public class BasicActivity extends AppCompatActivity {
 
         btn_disconnect.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {  // מנתק
                 FirebaseAuth.getInstance().signOut();
                 builder.cancel();
             }
@@ -254,7 +254,7 @@ public class BasicActivity extends AppCompatActivity {
 
                                                                      // פעולות
 
-    // התחברות
+    // מקבל אימייל וסיסמא ומתחבר לחשבון
     public void logIn(String email, String password){
 
         mAuth = FirebaseAuth.getInstance();
