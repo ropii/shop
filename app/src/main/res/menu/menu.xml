@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+    <item
+        android:id="@+id/menu_accSettings"
+        android:icon="@drawable/icon_person"
+        android:title="account"
+        app:cnb_backgroundColor="#673AB7"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000" />
 
-            <item
-                android:id="@+id/menu_signUp"
-                android:title="sign up"
-                android:icon="@color/black"
-                app:cnb_backgroundColor = "#FF935D"
+    <item
+        android:id="@+id/menu_signUp"
+        android:icon="@color/black"
 
-                />
-            <item
-                android:id="@+id/menu_signIn"
-                android:title="sign in"
-                app:cnb_backgroundColor = "#FF935D"
-
-                />
-
-            <item
-                android:id="@+id/menu_accSettings"
-                android:icon="@drawable/icon_person"
-                app:cnb_backgroundColor = "#FF935D"
-
-                android:title="account" />
-
-            <item
-                android:id="@+id/menu_disconnect"
-                app:cnb_backgroundColor = "#FF935D"
-
-                android:title="sign out" />
+        android:title="sign up"
+        app:cnb_backgroundColor="#673AB7"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000"
 
 
+        />
+    <item
+        android:id="@+id/menu_signIn"
+        android:title="sign in"
+        app:cnb_backgroundColor="#673AB7"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000"
 
+        />
+
+
+    <item
+        android:id="@+id/menu_disconnect"
+        android:title="sign out"
+        app:cnb_backgroundColor="#673AB7"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000" />
 
 
 </menu>

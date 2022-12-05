@@ -2,11 +2,6 @@ package com.example.shop;
 
 import static android.app.PendingIntent.getActivity;
 
-import static com.example.shop.Functions.isSignIn;
-import static com.example.shop.Functions.returnConnectedPerson;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +23,9 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         chipNavigationBar = findViewById(R.id.chipNavBar);
+
+      //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new BlankFragment()).commit();
+
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int i) {
@@ -37,15 +35,18 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                         openSignUpDialog();
                         break;
                     case R.id.menu_signIn:
-                        openSignInDialog();
+                        fragment = new BlankFragment2();
+                       // openSignInDialog();
                         break;
                     case R.id.menu_accSettings:
-                        startActivity(new Intent(getApplicationContext(), AccountSettingsActivity.class));
+                        //startActivity(new Intent(getApplicationContext(), AccountSettingsActivity.class));
+                        fragment = new BlankFragment();
                         break;
                 }
-                if (fragment != null) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.commit();
+                if (fragment!=null){
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.setCustomAnimations(R.anim.fade_in,R.anim.fade_out);
+                    ft.replace(R.id.fragment_container,fragment).commit();
                 }
             }
         });
@@ -53,13 +54,6 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        p = returnConnectedPerson();
-        if (p != null ) {
-            //Person p2 = p;
-            tv.setText(p.getFirstName() + "\n" + p.getLastName() + "\n" + p.getEmail() + "\n" + p.getPassword()+"\n" +p.getClass());
-        } else {
-            tv.setText(isSignIn() + "");
-        }
-        //  startActivity(new Intent(this, TestActivity.class));
+
     }
 }
