@@ -1,19 +1,16 @@
 package com.example.shop;
 
+import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
@@ -49,12 +46,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d("sagie", "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         btn_signUp_acc = view.findViewById(R.id.btn_signUp_acc);
         btn_signIn_acc = view.findViewById(R.id.btn_signIn_acc);
@@ -64,17 +63,50 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         btn_signIn_acc.setOnClickListener(this);
         btn_signOut_acc.setOnClickListener(this);
         btn_AccountSettings_acc.setOnClickListener(this);
-
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        //return inflater.inflate(R.layout.fragment_account, container, false);
+        return view;
     }
 
     @Override
     public void onClick(View view) {
-        if (view==btn_signUp_acc){
+        Log.d("sagie", "openDisconnectDialog: ");
+        Log.d("fragment_on_click", "onClick: ");
+
+        if (view==btn_signOut_acc){
+            openDisconnectDialog();
         }
 
     }
 
+    private void openDisconnectDialog() {
+        Log.d("sagie", "openDisconnectDialog: ");
+        Dialog builder = new Dialog(getContext());
+        builder.setContentView(R.layout.dialog_disconnect);
+        builder.setCancelable(true);
+
+
+       Button btn_cancel = builder.findViewById(R.id.btn_cancel);
+        Button btn_disconnect = builder.findViewById(R.id.btn_disconnect);
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.cancel();
+            }
+        });
+
+        btn_disconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {  // מנתק
+                FirebaseAuth.getInstance().signOut();
+                builder.cancel();
+            }
+        });
+
+        builder.create();
+        builder.show();
+    }
 
 
 }

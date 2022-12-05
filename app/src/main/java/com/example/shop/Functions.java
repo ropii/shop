@@ -66,8 +66,7 @@ public class Functions {
                     Functions.generalConnectedPerson = documentSnapshot.toObject(Person.class);}
                     else {
                         Functions.generalConnectedPerson = documentSnapshot.toObject(Partner.class);
-
-                            Log.d("user_data_kind", ""+generalConnectedPerson.getClass());
+                        Log.d("user_data_kind", ""+generalConnectedPerson.getClass());
 
 
                     }

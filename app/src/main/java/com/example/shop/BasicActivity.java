@@ -50,6 +50,7 @@ public class BasicActivity extends AppCompatActivity {
 
 
 
+/*
     //מזמן MENU
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu){
@@ -103,12 +104,13 @@ public class BasicActivity extends AppCompatActivity {
     }
 
 
+*/
 
 
 
 
     //דיאלוג של התנתקות
-    private void openDisconnectDialog() {
+    public  void openDisconnectDialog() {
 
         Dialog builder = new Dialog(BasicActivity.this);
         builder.setContentView(R.layout.dialog_disconnect);
