@@ -2,6 +2,9 @@ package com.example.shop;
 
 import static android.app.PendingIntent.getActivity;
 
+import static com.example.shop.Functions.returnConnectedPerson;
+import static com.example.shop.Functions.setPerson;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +26,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         chipNavigationBar = findViewById(R.id.chipNavBar);
+        setPerson();
+        p = returnConnectedPerson();
 
       //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new BlankFragment()).commit();
 
@@ -39,8 +44,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                        // openSignInDialog();
                         break;
                     case R.id.menu_accSettings:
-                        //startActivity(new Intent(getApplicationContext(), AccountSettingsActivity.class));
-                        fragment = new BlankFragment();
+                        fragment = new AccountFragment();
                         break;
                 }
                 if (fragment!=null){

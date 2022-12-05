@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".AccountFragment"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="sign up"
+        android:id="@+id/btn_signUp_acc"
+        />
+    <Button
+
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="sign in"
+        android:id="@+id/btn_signIn_acc"
+        />
+    <Button
+
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="sign out"
+        android:id="@+id/btn_signOut_acc"
+
+        />
+    <Button
+
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="settings"
+        android:id="@+id/btn_AccountSettings_acc"
+
+        />
+
+</LinearLayout>

@@ -36,9 +36,8 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
-        if (person_main == null) {
             person_main = returnConnectedPerson();
-        }
+
 
         imb_product = findViewById(R.id.imb_product);
         imb_cart = findViewById(R.id.imb_cart);
