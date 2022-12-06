@@ -50,7 +50,7 @@ public class BasicActivity extends AppCompatActivity {
 
 
 
-/*
+
     //מזמן MENU
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu){
@@ -104,7 +104,7 @@ public class BasicActivity extends AppCompatActivity {
     }
 
 
-*/
+
 
 
 
