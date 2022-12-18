@@ -74,7 +74,7 @@ public class BasicActivity extends AppCompatActivity {
         menu_signIn = globalMenu.findItem(R.id.menu_signIn);
         menu_signIn.setVisible(!isSignIn());
 
-        menu_signUp = globalMenu.findItem(R.id.menu_signUp);
+        menu_signUp = globalMenu.findItem(R.id.menu_products);
         menu_signUp.setVisible(!isSignIn());
 
         menu_accSettings = globalMenu.findItem(R.id.menu_accSettings);
@@ -88,7 +88,7 @@ public class BasicActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.menu_signUp) {
+        if (id == R.id.menu_products) {
             openSignUpDialog();
         }
         if (id == R.id.menu_signIn) {

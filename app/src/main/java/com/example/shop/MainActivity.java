@@ -29,19 +29,15 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         setPerson();
         p = returnConnectedPerson();
 
-      //  getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new BlankFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProductsFragment()).commit();
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int i) {
                 Fragment fragment = null;
                 switch (i) {
-                    case R.id.menu_signUp:
-                        openSignUpDialog();
-                        break;
-                    case R.id.menu_signIn:
-                        fragment = new BlankFragment2();
-                       // openSignInDialog();
+                    case R.id.menu_products:
+                        fragment = new ProductsFragment();
                         break;
                     case R.id.menu_accSettings:
                         fragment = new AccountFragment();
