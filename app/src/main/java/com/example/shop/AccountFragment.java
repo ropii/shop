@@ -38,7 +38,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public AccountFragment() {
     }
-
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();

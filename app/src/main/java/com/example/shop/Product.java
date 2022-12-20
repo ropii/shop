@@ -45,4 +45,8 @@ public class Product {
     public int getPrice() {
         return price;
     }
+
+    public int getImageId() {
+        return imgId;
+    }
 }

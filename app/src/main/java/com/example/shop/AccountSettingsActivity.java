@@ -27,9 +27,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Calendar;
 
-public class AccountSettingsActivity extends BasicActivity implements View.OnClickListener {
+public class AccountSettingsActivity extends BasicActivity /*implements View.OnClickListener*/ {
 
-    ImageButton imb_product, imb_cart, imb_history, imb_account;
+/*    ImageButton imb_product, imb_cart, imb_history, imb_account;
     Person person_main = MainActivity.p, person;
 
     @Override
@@ -226,5 +226,5 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
             openAccInfoDialog();
         }
 
-    }
+    }*/
 }

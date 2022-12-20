@@ -7,36 +7,27 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class ProductsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    ArrayList<Product> productArrayList = new ArrayList<>();
+    ListView lvProduct;
+    ProductAdapter productAdapter;
+
+
     public ProductsFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProductsFragment newInstance(String param1, String param2) {
         ProductsFragment fragment = new ProductsFragment();
         Bundle args = new Bundle();
@@ -56,9 +47,31 @@ public class ProductsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_products, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_products, container, false);
+
+        lvProduct = view.findViewById(R.id.lvProduct);
+        createArLs();
+        createAdapter();
+
+        return view;
     }
+
+    public void createArLs(){
+        for (int i = 0; i <20 ; i++) {
+
+
+        productArrayList.add(new Product("normal","house",R.drawable.acc_img,100));
+        productArrayList.add(new Product("red","gaming",R.drawable.cart_img,5));
+        }
+
+    }
+
+    public void createAdapter() {
+
+        productAdapter = new ProductAdapter(getContext(), 0, 0, productArrayList);
+        lvProduct.setAdapter(productAdapter);
+    }
+
+
 }

@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class BasicActivity extends AppCompatActivity {
 
-    Button btn_cancel, btn_signUp,btn_logIn , btn_disconnect;
+    /*Button btn_cancel, btn_signUp,btn_logIn , btn_disconnect;
     EditText et_firstName, et_lastName, et_password, et_email;
     private FirebaseAuth mAuth;
     String str_firstName;
@@ -321,6 +321,6 @@ public class BasicActivity extends AppCompatActivity {
 
 
 
-    }
+    }*/
 }
 
