@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#693C6C"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".UploadItemFragment"
+    >
+
+    <EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/ed_name"
+    android:hint="name"
+    />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ed_price"
+        android:hint="price"
+        android:inputType="number"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ed_category"
+        android:hint="category"
+        />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ed_description"
+        android:hint="description"
+        />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_gallery"
+            android:id="@+id/ib_gallery"
+            android:layout_marginRight="5dp"
+            />
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/icon_camera"
+            android:id="@+id/ib_camera"
+            android:layout_marginLeft="5dp"
+
+            />
+        <TextView
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:hint="gallery"
+            />
+        <TextView
+            android:layout_width="60dp"
+            android:gravity="center"
+
+            android:layout_height="wrap_content"
+            android:hint="camera"
+            />
+
+    </GridLayout>
+
+    <ImageButton
+        android:layout_marginTop="50dp"
+        android:background="@drawable/icon_upload"
+        android:layout_width="60dp"
+        android:id="@+id/ib_upload"
+        android:layout_height="60dp"
+        android:src="@drawable/icon_upload"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="upload"/>
+
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.shop;
 
 import static android.app.PendingIntent.getActivity;
 
+import static com.example.shop.Functions.generalConnectedPerson;
 import static com.example.shop.Functions.returnConnectedPerson;
 import static com.example.shop.Functions.setPerson;
 
@@ -41,6 +42,22 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                         break;
                     case R.id.menu_accSettings:
                         fragment = new AccountFragment();
+                        break;
+                    case R.id.menu_upload:
+                        if (generalConnectedPerson==null || generalConnectedPerson instanceof Person){
+                            chipNavigationBar.setItemEnabled(R.id.menu_upload,false);
+                            if (generalConnectedPerson==null){
+                                // please log in
+                            }
+                            else {
+                                {
+                                    // please become a partner
+                                }
+                            }
+                        }
+
+                        else {
+                        fragment = new UploadItemFragment();}
                         break;
                 }
                 if (fragment!=null){

@@ -2,10 +2,10 @@ package com.example.shop;
 
 public class CreditCard {
     int cvc;
-    int number;
+    long number;
     Date validation;
 
-    public CreditCard(int cvc, int number, Date validation) {
+    public CreditCard(int cvc, long number, Date validation) {
         this.cvc = cvc;
         this.number = number;
         this.validation = validation;
@@ -20,11 +20,11 @@ public class CreditCard {
         this.cvc = cvc;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 

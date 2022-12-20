@@ -63,7 +63,7 @@ public class Functions {
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Log.d("user_data", ""+documentSnapshot.get("money"));
                     if (documentSnapshot.get("money")==null){
-                    Functions.generalConnectedPerson = documentSnapshot.toObject(Person.class);}
+                        Functions.generalConnectedPerson = documentSnapshot.toObject(Person.class);}
                     else {
                         Functions.generalConnectedPerson = documentSnapshot.toObject(Partner.class);
                         Log.d("user_data_kind", ""+generalConnectedPerson.getClass());
@@ -72,13 +72,13 @@ public class Functions {
                     }
                 }
             });
-        } else {
-            Functions.generalConnectedPerson = null;
         }
+        Functions.generalConnectedPerson = null;
+
     }
 
     // בדיקת תכנות
-    public static void test() {
+    public void test() {
         Date date = new Date(12, 2022);
         CreditCard card = new CreditCard(1, 2, date);
         Person p = new Person("name", "family", "gmail", "pass");

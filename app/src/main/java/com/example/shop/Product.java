@@ -3,6 +3,7 @@ package com.example.shop;
 public class Product {
     private String name;
     private String category;
+    private String description;
     private int rate;
     private int imgId;
     private int price;
@@ -13,8 +14,13 @@ public class Product {
         this.imgId = imgId;
         this.price = price;
     }
-
-
+    public Product(String name,String category, int imgId, int price, String description) {
+        this.name = name;
+        this.category = category;
+        this.imgId = imgId;
+        this.price = price;
+        this.description = description;
+    }
     public String getCategory() {
         return category;
     }
@@ -45,8 +51,14 @@ public class Product {
     public int getPrice() {
         return price;
     }
-
     public int getImageId() {
         return imgId;
     }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

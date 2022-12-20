@@ -1,17 +1,23 @@
 package com.example.shop;
 
 import static android.content.ContentValues.TAG;
+import static com.example.shop.Functions.generalConnectedPerson;
 import static com.example.shop.Functions.isSignIn;
 import static com.example.shop.Functions.isValidEmailAddress;
+import static com.example.shop.Functions.returnConnectedPerson;
+import static com.example.shop.Functions.setPerson;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,10 +25,14 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Calendar;
 
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
@@ -38,6 +48,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     public AccountFragment() {
     }
+
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
@@ -91,10 +102,195 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         if (view==btn_signUp_acc){
             openSignUpDialog();
         }
+        if (view==btn_AccountSettings_acc){
+            openAccInfoDialog();
+        }
     }
 
 
-                        // דיאלוגים
+    // דיאלוגים
+
+    // הדיאלוג מאפשר לקונה להוסיף פרטים אודותיו ולשנותם
+    private void openAccInfoDialog() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Dialog builder = new Dialog(getContext());
+        builder.setContentView(R.layout.dialog_update_info);
+        builder.setCancelable(true);
+
+        Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        Integer[] years = new Integer[12];
+        int this_year = Calendar.getInstance().get(Calendar.YEAR);
+
+        for (int i = 0; i < years.length; i++) {
+            years[i] = this_year + i;
+        }
+
+        Button btn_update = builder.findViewById(R.id.btn_update);
+        Button btn_cancel = builder.findViewById(R.id.btn_cancel);
+        EditText et_firstName = builder.findViewById(R.id.et_fistName);
+        EditText et_lastName = builder.findViewById(R.id.et_lastName);
+        EditText et_password = builder.findViewById(R.id.et_password);
+        EditText et_email = builder.findViewById(R.id.et_email);
+        EditText et_zip = builder.findViewById(R.id.et_zip);
+        EditText et_cardNumber = builder.findViewById(R.id.et_cardNumber);
+        EditText et_cvc = builder.findViewById(R.id.et_cvc);
+        EditText et_current_password = builder.findViewById(R.id.et_current_password);
+
+
+        Spinner spinner_mm = builder.findViewById(R.id.spinner_mm);
+        Spinner spinner_yy = builder.findViewById(R.id.spinner_yy);
+
+        ArrayAdapter ad = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, months);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_mm.setPrompt("mm");  // doesnt work
+        spinner_mm.setAdapter(ad);
+
+        ad = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, years);
+        ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_yy.setPrompt("yy");  // doesnt work
+        spinner_yy.setAdapter(ad);
+
+
+        et_firstName.setText(generalConnectedPerson.getFirstName());
+        et_lastName.setText(generalConnectedPerson.getLastName());
+        et_password.setText(generalConnectedPerson.getPassword());
+        et_email.setText(generalConnectedPerson.getEmail());
+
+        et_email.setEnabled(false);
+        et_email.setInputType(InputType.TYPE_NULL);
+
+        if(generalConnectedPerson instanceof Partner){
+            int zip=((Partner)generalConnectedPerson).getZip();
+            et_zip.setText(zip+"");
+            long card_number=((Partner)generalConnectedPerson).getCard().getNumber();
+            et_cardNumber.setText(card_number+"");
+            int cvc=((Partner)generalConnectedPerson).getCard().getCvc();
+            et_cvc.setText(cvc+"");
+            int month=((Partner)generalConnectedPerson).getCard().getValidation().getMonth();
+            spinner_mm.setSelection(month-1);
+            int year=((Partner)generalConnectedPerson).getCard().getValidation().getYear();
+            spinner_yy.setSelection(year-this_year);
+        }
+
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.cancel();
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str_firstName = et_firstName.getText().toString();
+                String str_lastName = et_lastName.getText().toString();
+                String  str_password = et_password.getText().toString();
+                String str_email = et_email.getText().toString();
+                String str_zip = et_zip.getText().toString();
+                String str_cardNumber = et_cardNumber.getText().toString();
+                String str_cvc = et_cvc.getText().toString();
+
+                //check if et is empty
+                if ( str_zip.length()>8) {
+                    et_zip.setError("zip must be less than 8 digits");
+                }
+                if (str_zip.equals("")) {
+                    et_zip.setError("ENTER a ZIP");
+                }
+                if (str_cardNumber.length()!=16) {
+                    et_cardNumber.setError("credit card must be 16 digits");
+                }
+                if (str_cardNumber.equals("")) {
+                    et_cardNumber.setError("ENTER CARD NUMBER");
+                }
+                if (str_cvc.length()!=3) {
+                    et_cvc.setError(" CVC must be 3 digits");
+                }
+                if (str_cvc.equals("")) {
+                    et_cvc.setError("ENTER CVC");
+                }
+
+
+                if (str_firstName.equals("")) {
+                    et_firstName.setError("ENTER FIRST NAME");
+                }
+
+                if (str_lastName.equals("")) {
+                    et_lastName.setError("ENTER LAST NAME");
+                }
+                if (str_email.equals("") || !isValidEmailAddress(str_email)) {
+                    et_email.setError("ENTER A VALID EMAIL ");
+
+                }
+                if (str_password.equals("") || str_password.length() < 6) {
+                    et_password.setError("ENTER PASSWORD (6 chars)");
+                }
+                Boolean validInfo = str_password.length() >= 6 && isValidEmailAddress(str_email) && !str_firstName.equals("") && !str_lastName.equals("") && !str_email.equals("") && !str_password.equals("") && !str_zip.equals("") && !str_cardNumber.equals("") && !str_cvc.equals("")&& str_cvc.length()==3&& str_zip.length()<8 &&str_cardNumber.length()==16;
+                if (validInfo) {//info is valid
+
+                    int int_zip = Integer.parseInt(str_zip);
+                    long long_cardNumber = Long.parseLong(str_cardNumber);
+                    int int_cvc = Integer.parseInt(str_cvc);
+
+
+                    if (et_current_password.getText().toString().equals(generalConnectedPerson.getPassword())) {
+
+
+                        int spinner_pos = spinner_mm.getSelectedItemPosition();
+                        int int_month = months[spinner_pos];
+                        spinner_pos = spinner_yy.getSelectedItemPosition();
+                        int int_year = years[spinner_pos];
+
+                        Date date = new Date(int_month, int_year);
+                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("users").document(str_email).set(new Partner(str_firstName, str_lastName, str_email, str_password, (new CreditCard(int_cvc, long_cardNumber, date)), int_zip));
+                        if (!str_password.equals(generalConnectedPerson.getPassword())) {
+
+
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            // Get auth credentials from the user for re-authentication
+                            AuthCredential credential = EmailAuthProvider
+                                    .getCredential(str_email, generalConnectedPerson.getPassword()); // Current Login Credentials \\
+                            // Prompt the user to re-provide their sign-in credentials
+                            user.reauthenticate(credential)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Log.d(TAG, "User re-authenticated.");
+                                            //Now change your email address \\
+                                            //----------------Code for Changing Email Address----------\\
+                                            user.updatePassword(str_password)
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Log.d("change password tag", "User password address updated.");
+                                                            }
+                                                        }
+                                                    });
+                                            //----------------------------------------------------------\\
+                                        }
+                                    });
+                        }
+
+                        setPerson();
+                        builder.cancel();
+                        Toast.makeText(getContext(), "info saved", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(getContext(), "pls enter the password", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+
+
     //הפעולה פותחת דיאלוג המאפשר למשתמש להתנתק
     private void openDisconnectDialog() {
         Dialog builder = new Dialog(getContext());
@@ -102,7 +298,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         builder.setCancelable(true);
 
 
-       Button btn_cancel = builder.findViewById(R.id.btn_cancel);
+        Button btn_cancel = builder.findViewById(R.id.btn_cancel);
         Button btn_disconnect = builder.findViewById(R.id.btn_disconnect);
 
 
@@ -119,6 +315,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(), "disconnected.", Toast.LENGTH_SHORT).show();
                 setVisibility();
+                setPerson();
                 builder.cancel();
             }
         });
@@ -166,7 +363,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_email.equals("") &&  !str_password.equals("");
                 if (validInfo) {   //info is valid
 
-                  //  builder.cancel();
+                    //  builder.cancel();
                     setVisibility();
                     //logIn(str_email,str_password);
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -181,6 +378,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         Toast.makeText(getActivity(), "logged in.",Toast.LENGTH_SHORT).show();
                                         setVisibility();
+                                        setPerson();
                                         builder.cancel();
 
                                     } else {
@@ -256,6 +454,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     builder.cancel();
                     Person p = new Person(str_firstName, str_lastName, str_email, str_password);
                     registerUser(p);
+                    setPerson();
 
                 }
 
@@ -269,7 +468,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
 
 
-                    // פעולות עזר
+    // פעולות עזר
 
     // הפעולה מחברת את המשתמש בעזרת אימייל וסיסמא שהיא מקבלת מהדיאלוג
     private void logIn(String str_email, String str_password) {
@@ -299,7 +498,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    // שליחת אימייל וסיסמא לפייר-בייס (הרשמה)
+    //   שליחת אימייל וסיסמא לפייר-בייס (הרשמה) והוספה לפייר- סטור(אחסון נתונים)
     public void registerUser(Person p) {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
