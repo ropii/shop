@@ -189,7 +189,7 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
                             hm.put(uuid,downloadUri.toString());
                             Partner p =(Partner)Functions.generalConnectedPerson;
                             Product product_created=createProduct(str_description,str_name,str_category,str_price,uuid,downloadUri.toString());
-                            db.collection("products").document("uuid").set(product_created);
+                            db.collection("products").document(uuid).set(product_created);
                             ArrayList<Product> arr_products= p.getItems();
                             arr_products.add(product_created);
                             p.setItems(arr_products);
@@ -219,6 +219,10 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
         }
         if (str_category.equals("")) {
             ed_category.setError("enter a category");
+            valid_info = false;
+        }
+        if (str_price.length()>7) {
+            ed_price.setError("price must be less than 1M");
             valid_info = false;
         }
         if (str_price.equals("")) {
