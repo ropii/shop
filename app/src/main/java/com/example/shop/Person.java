@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Person {
     private String firstName, lastName,email,password;
-    private ArrayList<Product> cart;
+    private ArrayList<Product> cart = new ArrayList<>();
 
 
     public Person(String firstName, String lastName, String email, String password) {

@@ -1,33 +1,240 @@
 package com.example.shop;
 
-import static android.content.ContentValues.TAG;
-import static com.example.shop.Functions.isValidEmailAddress;
-import static com.example.shop.Functions.returnConnectedPerson;
 
 import androidx.annotation.NonNull;
 
-import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.util.Calendar;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
-public class AccountSettingsActivity extends BasicActivity /*implements View.OnClickListener*/ {
+public class AccountSettingsActivity extends BasicActivity implements View.OnClickListener {
+
+
+    private Button btnSelect, btnUpload,btnDownload;
+
+    // view for image view
+    private ImageView imageView;
+
+    // Uri indicates, where the image will be picked from
+    private Uri filePath;
+
+    // request code
+    private final int PICK_IMAGE_REQUEST = 22;
+
+    // instance for firebase storage and StorageReference
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    ;
+    StorageReference storageReference = storage.getReference();;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account_settings);
+
+        // initialise views
+        btnDownload= findViewById(R.id.btnDownload);
+        btnSelect = findViewById(R.id.btnChoose);
+        btnUpload = findViewById(R.id.btnUpload);
+        imageView = findViewById(R.id.imgView);
+
+
+        // on pressing btnSelect SelectImage() is called
+        btnSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                SelectImage();
+            }
+        });
+
+        // on pressing btnUpload uploadImage() is called
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                uploadImage();
+            }
+        });
+
+        btnDownload.setOnClickListener(this);
+    }
+
+    // Select Image method
+    private void SelectImage()
+    {
+
+        // Defining Implicit Intent to mobile gallery
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(
+                Intent.createChooser(
+                        intent,
+                        "Select Image from here..."),
+                PICK_IMAGE_REQUEST);
+    }
+
+    // Override onActivityResult method
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data)
+    {
+
+        super.onActivityResult(requestCode,
+                resultCode,
+                data);
+
+        // checking request code and result code
+        // if request code is PICK_IMAGE_REQUEST and
+        // resultCode is RESULT_OK
+        // then set image in the image view
+        if (requestCode == PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            filePath = data.getData();
+            try {
+
+                // Setting image on image view using Bitmap
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+            }
+
+            catch (IOException e) {
+                // Log the exception
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
+
+    // UploadImage method
+    private void uploadImage()
+    {
+        if (filePath != null) {
+
+            // Code for showing progressDialog while uploading
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+
+            // Defining the child of storageReference
+            String uuid =UUID.randomUUID().toString();
+            StorageReference ref = storageReference.child("productsImg/" + uuid);
+
+            // adding listeners on upload
+            // or failure of image
+            UploadTask uploadTask = (UploadTask) ref.putFile(filePath);
+            uploadTask.addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    Toast.makeText(AccountSettingsActivity.this, "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                }
+                            })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage("Uploaded " + (int)progress + "%");
+                                }
+                            });
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+                    // Continue with the task to get the download URL
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        Toast.makeText(AccountSettingsActivity.this, downloadUri.toString(), Toast.LENGTH_SHORT).show();
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        HashMap<String, String> hm =new HashMap<String,String>();
+                        hm.put(uuid,downloadUri.toString());
+                        db.collection("products").document("for_sale").set(hm);
+
+                    }
+                }
+            });
+
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == btnDownload){
+            StorageReference storageRef = storage.getReference();
+            StorageReference spaceRef = storageRef.child("test/yone.jpg");
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("test/yone.jpg");
+            //Toast.makeText(AccountSettingsActivity.this, "" + storageReference.getName().toString(), Toast.LENGTH_SHORT).show();
+            /*Object o = storageReference.get*/
+            String str = "https://firebasestorage.googleapis.com/v0/b/shop-d4e6c.appspot.com/o/test%2Fyone.jpg?alt=media&token=99cf99a3-9d19-4076-95e1-10df67e88bc3";
+           // Glide.with(AccountSettingsActivity.this).load(str).into(imageView);
+            spaceRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(AccountSettingsActivity.this).load(uri).into(imageView);
+                    Log.d("img:" , uri.toString());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("img:" , exception.toString() + "adad");
+                }
+            });
+
+            Log.d("img:" , "end");
+
+
+        }
+    }
+
 
 /*    ImageButton imb_product, imb_cart, imb_history, imb_account;
     Person person_main = MainActivity.p, person;

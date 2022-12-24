@@ -451,10 +451,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 Boolean validInfo = str_password.length()>=6 && isValidEmailAddress(str_email)&& !str_firstName.equals("") &&  !str_lastName.equals("") &&  !str_email.equals("") &&  !str_password.equals("");
                 if (validInfo) {   //info is valid
                     setVisibility();
-                    builder.cancel();
                     Person p = new Person(str_firstName, str_lastName, str_email, str_password);
-                    registerUser(p);
-                    setPerson();
+                    registerUser(p,builder);
+                    generalConnectedPerson = p;
 
                 }
 
@@ -499,7 +498,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
 
     //   שליחת אימייל וסיסמא לפייר-בייס (הרשמה) והוספה לפייר- סטור(אחסון נתונים)
-    public void registerUser(Person p) {
+    public void registerUser(Person p,Dialog builder) {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -513,10 +512,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                     db.collection("users").document(p.getEmail()+"").set(p);          // הוספת הפרטים למשתמש
                     Toast.makeText(getActivity(), "SIGN UP SUCCESSFULLY", Toast.LENGTH_SHORT).show();
                     setVisibility();
+                    builder.cancel();
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                     Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    builder.cancel();
+
                 }
             }
         });

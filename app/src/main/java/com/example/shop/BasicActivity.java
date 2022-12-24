@@ -98,7 +98,7 @@ public class BasicActivity extends AppCompatActivity {
             openDisconnectDialog();
         }
         if (id == R.id.menu_accSettings) {
-            startActivity(new Intent(this, AccountSettingsActivity.class));;
+            startActivity(new Intent(this, AccountSettingsActivity.class));
         }
         return true;
     }

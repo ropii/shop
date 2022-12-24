@@ -6,6 +6,7 @@ import static com.example.shop.Functions.generalConnectedPerson;
 import static com.example.shop.Functions.returnConnectedPerson;
 import static com.example.shop.Functions.setPerson;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -33,10 +34,14 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProductsFragment()).commit();
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(int i) {
                 Fragment fragment = null;
                 switch (i) {
+                    case  R.id.menu_disconnect:
+                        startActivity(new Intent(MainActivity.this, AccountSettingsActivity.class));
+                        break;
                     case R.id.menu_products:
                         fragment = new ProductsFragment();
                         break;
@@ -44,8 +49,9 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                         fragment = new AccountFragment();
                         break;
                     case R.id.menu_upload:
-                        if (generalConnectedPerson==null || generalConnectedPerson instanceof Person){
-                            chipNavigationBar.setItemEnabled(R.id.menu_upload,false);
+                        if (generalConnectedPerson==null || !(generalConnectedPerson instanceof Partner)){
+                            //chipNavigationBar.setItemEnabled(R.id.menu_upload,false);
+                            chipNavigationBar.setItemSelected(R.id.menu_accSettings,true);
                             if (generalConnectedPerson==null){
                                 // please log in
                             }
@@ -57,7 +63,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
                         }
 
                         else {
-                        fragment = new UploadItemFragment();}
+                            fragment = new UploadItemFragment();}
                         break;
                 }
                 if (fragment!=null){

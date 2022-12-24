@@ -1,63 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".AccountSettingsActivity"
-    android:gravity="center"
-    android:orientation="vertical"
+
     >
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="5"
-        android:layout_gravity="center"
-        >
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!--Button for choosing image from gallery-->
+        <Button
+            android:id="@+id/btnChoose"
+            android:text="Choose"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnDownload"
+            android:text="Choose"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:background="#00FFFFFF"
-            android:layout_width="450px"
-            android:layout_height="450px"
-            android:scaleType="fitXY"
-            android:src="@drawable/acc_img"
-            android:layout_margin="20dp"
-            android:id="@+id/imb_account"
-            />
-        <ImageButton
-            android:id="@+id/imb_cart"
-            android:layout_margin="20dp"
-            android:src="@drawable/cart_img"
-            android:background="#00FFFFFF"
-            android:layout_width="450px"
-            android:layout_height="450px"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/imb_history"
-            android:layout_margin="20dp"
-            android:background="#00FFFFFF"
-            android:layout_width="450px"
-            android:layout_height="450px"
-            android:src="@drawable/history_img"
-            android:scaleType="fitXY"
-            />
-        <ImageButton
-            android:id="@+id/imb_product"
-            android:layout_width="450px"
-            android:background="#00FFFFFF"
-            android:layout_height="450px"
-            android:src="@drawable/product_img"
-            android:scaleType="fitXY"
-            android:layout_margin="20dp"
+        <!--Button for uploading image-->
+        <Button
+            android:id="@+id/btnUpload"
+            android:text="Upload"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
 
-            />
-
-
-    </GridLayout>
+    </LinearLayout>
 
 
 
-</LinearLayout>
+
+    <!--Image View for showing image chosen from gallery-->
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -51,13 +51,18 @@ dependencies {
         kakao = '3.0.6'
     }
 
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
+
 
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.31'
 
     implementation 'com.google.api:api-common:2.2.1'
     implementation 'com.google.firebase:firebase-firestore'
-
+    implementation 'com.google.firebase:firebase-storage:20.1.0'
 
 
     implementation platform('com.google.firebase:firebase-bom:31.0.2')

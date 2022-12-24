@@ -75,6 +75,13 @@
 
     </GridLayout>
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/iv_img"
+        />
+
     <ImageButton
         android:layout_marginTop="50dp"
         android:background="@drawable/icon_upload"

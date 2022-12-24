@@ -2,12 +2,16 @@ package com.example.shop;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -33,8 +37,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         ImageView ivProduct=view.findViewById(R.id.ivProduct);
         Product temp = objects.get(position);
 
-        ivProduct.setImageResource(temp.getImageId());
-        tvPrice.setText(String.valueOf(temp.getPrice()));
+
+        Glide.with(getContext()).load(temp.getImgUrl()).into(ivProduct);
+        tvPrice.setText(temp.getPrice()+"");
         tvName.setText(temp.getName());
         tvCategory.setText(temp.getCategory());
 

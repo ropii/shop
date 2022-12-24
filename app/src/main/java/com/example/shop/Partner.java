@@ -7,8 +7,8 @@ public class Partner extends Person{
 
     CreditCard card;
     int zip;
-    private ArrayList<Product> history;
-    private ArrayList<Product> items;
+    private ArrayList<Product> history= new ArrayList<>();
+    private ArrayList<Product> items = new ArrayList<>();
     private int money=0;
     HashMap<String, String> orders = new HashMap<String, String>();
 
@@ -34,6 +34,7 @@ public class Partner extends Person{
     public Partner(){
 
     }
+
 
     public CreditCard getCard() {
         return card;
