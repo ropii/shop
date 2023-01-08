@@ -2,6 +2,7 @@ package com.example.shop;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.checkSelfPermission;
+import static androidx.core.content.ContextCompat.getDrawable;
 
 import android.Manifest;
 import android.app.Activity;
@@ -153,8 +154,14 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
                             public void onSuccess(
                                     UploadTask.TaskSnapshot taskSnapshot)
                             {
-                                Toast.makeText(getContext(), "Image Uploaded!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Product Uploaded!!", Toast.LENGTH_SHORT).show();
                                 progressDialog.dismiss();
+                                ed_name.setText("");
+                                ed_category.setText("");
+                                ed_price.setText("");
+                                ed_description.setText("");
+                                iv_img.setImageDrawable(null);
+
                             }
                         })
                         .addOnProgressListener(
@@ -183,7 +190,6 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             Uri downloadUri = task.getResult();
-                            Toast.makeText(getContext(), downloadUri.toString(), Toast.LENGTH_SHORT).show();
                             FirebaseFirestore db = FirebaseFirestore.getInstance();
                             HashMap<String, String> hm =new HashMap<String,String>();
                             hm.put(uuid,downloadUri.toString());
