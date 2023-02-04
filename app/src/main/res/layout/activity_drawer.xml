@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- the root view must be the DrawerLayout -->
+
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_drawer_layout"
+    android:id="@+id/my_drawer_layout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".drawerActivity"
     tools:ignore="HardcodedText">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
+        android:layout_height="match_parent">
 
-
-        >
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_container"
-            />
-
-
-        <com.ismaeldivita.chipnavigation.ChipNavigationBar
-
-            android:layout_alignParentBottom="true"
-            android:id="@+id/chipNavBar"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_corners"
-            app:cnb_menuResource="@menu/menu"
-            app:cnb_unselectedColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            />
-
-    </RelativeLayout>
-
+            android:layout_marginTop="128dp"
+            android:gravity="center"
+            android:text="GeeksforGeeks"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <!-- this the navigation view which draws and shows the navigation drawer -->
     <!-- include the menu created in the menu folder -->

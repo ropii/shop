@@ -8,6 +8,7 @@ import static com.example.shop.Functions.returnConnectedPerson;
 import static com.example.shop.Functions.setPerson;
 
 import android.app.Dialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -59,6 +61,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     }
 
     Button btn_signUp_acc, btn_signIn_acc, btn_signOut_acc, btn_AccountSettings_acc;
+    VideoView videoView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,8 +78,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("sagie", "onCreateView: ");
+        Log.d("roi", "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        videoView = view.findViewById(R.id.videoView_accountF);
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.account_video_second);
+        videoView.setVideoURI(uri);
+        videoView.start();
+
         btn_signUp_acc = view.findViewById(R.id.btn_signUp_acc);
         btn_signIn_acc = view.findViewById(R.id.btn_signIn_acc);
         btn_signOut_acc = view.findViewById(R.id.btn_signOut_acc);
@@ -542,6 +550,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        videoView.start();
+    }
 
 }
 

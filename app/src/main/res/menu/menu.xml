@@ -19,7 +19,7 @@
         android:id="@+id/menu_upload"
         android:title="upload"
         android:icon="@drawable/icon_add"
-        app:cnb_backgroundColor="#B73A3A"
+        app:cnb_backgroundColor="#451136"
         app:cnb_iconColor="#000000"
         app:cnb_textColor="#000000"
 

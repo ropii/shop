@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -57,6 +58,8 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
     EditText ed_name, ed_category, ed_price, ed_description;
     ImageView iv_img;
     Bitmap bitM_upload =null;
+    VideoView videoView;
+
     public UploadItemFragment() {
     }
 
@@ -82,6 +85,12 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_upload_item, container, false);
+
+        videoView = view.findViewById(R.id.videoView_uploadF);
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.upload_video);
+        videoView.setVideoURI(uri);
+        videoView.start();
+
         ed_name = view.findViewById(R.id.ed_name);
         ed_category = view.findViewById(R.id.ed_category);
         ed_price = view.findViewById(R.id.ed_price);
@@ -289,4 +298,9 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        videoView.start();
+    }
 }

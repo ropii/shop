@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,11 +12,25 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
+    <VideoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/videoView_accountF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
     <Button
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="sign up"
         android:id="@+id/btn_signUp_acc"
+
         />
     <Button
 
@@ -41,5 +55,5 @@
         android:id="@+id/btn_AccountSettings_acc"
 
         />
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
