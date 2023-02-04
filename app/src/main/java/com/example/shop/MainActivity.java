@@ -58,8 +58,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
             public void onItemSelected(int i) {
                 Fragment fragment = null;
                 switch (i) {
-                    case  R.id.menu_disconnect:
-                        startActivity(new Intent(MainActivity.this, drawerActivity.class));
+                    case  R.id.menu_about:
+                        fragment = new AboutFragment();
                         break;
                     case R.id.menu_products:
                         fragment = new ProductsFragment();

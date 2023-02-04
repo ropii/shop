@@ -18,7 +18,7 @@
     <item
         android:id="@+id/menu_upload"
         android:title="upload"
-        android:icon="@drawable/icon_add"
+        android:icon="@drawable/ic_baseline_upload_24"
         app:cnb_backgroundColor="#451136"
         app:cnb_iconColor="#000000"
         app:cnb_textColor="#000000"
@@ -27,8 +27,9 @@
 
 
     <item
-        android:id="@+id/menu_disconnect"
-        android:title="sign out"
+        android:id="@+id/menu_cart"
+        android:title="cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
         app:cnb_backgroundColor="#673AB7"
         app:cnb_iconColor="#000000"
         app:cnb_textColor="#000000" />
@@ -41,7 +42,13 @@
         app:cnb_iconColor="#000000"
         app:cnb_textColor="#000000" />
 
-
+    <item
+        android:id="@+id/menu_about"
+        android:title="about"
+        android:icon="@drawable/ic_baseline_info_24"
+        app:cnb_backgroundColor="#AF9F90"
+        app:cnb_iconColor="#000000"
+        app:cnb_textColor="#000000" />
 </menu>
 
 
