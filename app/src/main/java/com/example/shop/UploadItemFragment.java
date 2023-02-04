@@ -50,7 +50,10 @@ import java.util.UUID;
 public class UploadItemFragment extends Fragment implements View.OnClickListener {
 
 
-    private static final String ARG_PARAM1 = "param1";private static final String ARG_PARAM2 = "param2";private String mParam1;private String mParam2;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private String mParam1;
+    private String mParam2;
 
      static final int CAMERA_REQUEST = 1888;
      static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -122,8 +125,15 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
 
         }
         if (view== ib_gallery){
+
+
+            // pass the constant to compare it
+            // with the returned requestCode
+
             Intent i = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            i.setType("image/*");
+
             startActivityForResult(i, 2);
 
         }
@@ -221,7 +231,7 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
 
 
 
-
+    // הפעולה בודקת האם הנתונים שהוכנסו אודות המוצר תקינים
     private boolean valid_info(String str_name,String str_category,String str_price) {
         boolean valid_info = true;
         if (iv_img.getDrawable() == null) {
@@ -247,6 +257,7 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
         return valid_info;
     }
 
+    // הפעולה יוצרת מוצר באמת לקלט ומחזירה אותו
     private Product createProduct(String str_description,String str_name,String str_category,String str_price,String productId, String imgUrl){
         if (str_description.equals("")){
             return new Product(str_name,str_category,imgUrl,Integer.parseInt(str_price),productId);

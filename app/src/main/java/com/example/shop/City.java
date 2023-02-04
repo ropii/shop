@@ -8,6 +8,7 @@ import java.util.Objects;
 
 /**
  * Represents a city : name, weather, population, country, capital, geo coordinates.
+ *                                 לא בשימוש, קיים על מנת ללמוד פייר-בייס
  */
 public class City {
 

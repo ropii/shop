@@ -2,6 +2,9 @@ package com.example.shop;
 
 import java.util.ArrayList;
 
+
+// קלאס של איש, לאיש יש שם, דרכי התחברות ועגלה.
+// לאוביקט מסוג זה לא קיימת האפשרות להעלות ולקנות מוצרים
 public class Person {
     private String firstName, lastName,email,password;
     private ArrayList<Product> cart = new ArrayList<>();

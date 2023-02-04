@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+//      המתאם של המוצר
 public class ProductAdapter extends ArrayAdapter<Product> {
 
 

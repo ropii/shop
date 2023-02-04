@@ -54,6 +54,8 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
         chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
 
+
+            // הפעולה בודקת האם לחצו על בר הניווט ומעבירה פרגמאנט בהתאם לכך
             @Override
             public void onItemSelected(int i) {
                 Fragment fragment = null;

@@ -36,7 +36,7 @@ public class homeActivity extends BasicActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        if (view==btn_start){
+        if (view==btn_start){  // עובר לאפליקציה
             Intent it= new Intent(getApplicationContext(), MainActivity.class);
             startActivity(it);
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

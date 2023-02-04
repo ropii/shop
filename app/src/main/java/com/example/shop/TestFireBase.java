@@ -1,3 +1,9 @@
+
+
+/**
+ *                                 לא בשימוש, קיים על מנת ללמוד פייר-בייס
+ */
+
 /*
 package com.example.shop;
 
@@ -81,6 +87,7 @@ public class TestFireBase {
 
     */
 /*CollectionReference*//*
+
  cities = db.collection("cities");
     List<ApiFuture<WriteResult>> futures = new ArrayList<>();
                 cities

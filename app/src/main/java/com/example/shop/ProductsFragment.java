@@ -84,13 +84,9 @@ public class ProductsFragment extends Fragment {
 
         return view;
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-    }
 
+    // יוצר את הארי- ליסט של המוצרים
     public void createArLs(){
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle("Loading...");

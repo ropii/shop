@@ -12,11 +12,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *                             מופיעות פה פעולות שחוזרות על עצמן
+ */
 public class Functions {
 
     static Person generalConnectedPerson = null;
 
-    // בודקת את תקינות האימייל
+    // הפעולה בודקת את תקינות האימייל
     public static boolean isValidEmailAddress(String email) {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
@@ -25,14 +28,14 @@ public class Functions {
     }
 
 
-    //מחזיר אמת אם המשתמש מחובר ושקר אחרת
+    //הפעולה מחזירה אמת אם המשתמש מחובר ושקר אחרת
     public static boolean isSignIn() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         return mAuth.getCurrentUser() != null;
     }
 
-    // מחזיר את המשתמש המחובר(אם משתמש לא מחובר מחזיר NULL)
+    // הפעולה מחזירה את המשתמש המחובר(אם המשתמש לא מחובר מחזיר NULL)
     public static FirebaseUser returnUser() {
         if (isSignIn()) {
             FirebaseAuth mAuth;
@@ -45,14 +48,14 @@ public class Functions {
     }
 
 
-    // מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) ובעזרתו אפשר לגשת לנתונים הנימצאים בפייר-סטור
+    // מחזיר את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) ובעזרתו אפשר לגשת לנתונים של המשתמש שהובאו מהפייר-סטור
     public static Person returnConnectedPerson() {
         setPerson();
         return generalConnectedPerson;
     }
 
 
-    //מעדכן את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) לאיש שמחובר
+    //מעדכן את "האיש הכללי המחובר"(משתנה ב FUNCTIONS) לאיש שמחובר על מנת לגשת לנתוניו
     static void setPerson() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (isSignIn()) {
@@ -62,9 +65,9 @@ public class Functions {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     Log.d("user_data", ""+documentSnapshot.get("money"));
-                    if (documentSnapshot.get("money")==null){
+                    if (documentSnapshot.get("money")==null){ // במקרה והמשתמש לא הוסיף פרטים נוספים
                         Functions.generalConnectedPerson = documentSnapshot.toObject(Person.class);}
-                    else {
+                    else {// במקרה והמשתמש כן הוסיף פרטים נוספים
                         Functions.generalConnectedPerson = documentSnapshot.toObject(Partner.class);
                         Log.d("user_data_kind", ""+generalConnectedPerson.getClass());
 
@@ -73,7 +76,7 @@ public class Functions {
                 }
             });
         }
-        Functions.generalConnectedPerson = null;
+        Functions.generalConnectedPerson = null; // מופיע פה NULL למקרה והמשתמש מתנתק
 
     }
 

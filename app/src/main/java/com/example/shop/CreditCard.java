@@ -1,5 +1,10 @@
 package com.example.shop;
 
+/*
+ הקלאס משומש שהמשתמש מוסיף פרטים
+
+ */
+
 public class CreditCard {
     int cvc;
     long number;

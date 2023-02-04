@@ -36,6 +36,10 @@ import java.util.Map;
 
 public class BasicActivity extends AppCompatActivity {
 
+    /**
+     *                                 לא בשימוש
+     */
+
     /*Button btn_cancel, btn_signUp,btn_logIn , btn_disconnect;
     EditText et_firstName, et_lastName, et_password, et_email;
     private FirebaseAuth mAuth;

@@ -31,8 +31,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class AccountSettingsActivity extends BasicActivity implements View.OnClickListener {
 
+
+/**
+ *                                 לא בשימוש
+ */
+
+
+public class AccountSettingsActivity extends BasicActivity {
+
+/*
 
     private Button btnSelect, btnUpload,btnDownload;
 
@@ -213,7 +221,9 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
             StorageReference spaceRef = storageRef.child("test/yone.jpg");
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("test/yone.jpg");
             //Toast.makeText(AccountSettingsActivity.this, "" + storageReference.getName().toString(), Toast.LENGTH_SHORT).show();
-            /*Object o = storageReference.get*/
+            */
+/*Object o = storageReference.get*//*
+
             String str = "https://firebasestorage.googleapis.com/v0/b/shop-d4e6c.appspot.com/o/test%2Fyone.jpg?alt=media&token=99cf99a3-9d19-4076-95e1-10df67e88bc3";
            // Glide.with(AccountSettingsActivity.this).load(str).into(imageView);
             spaceRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -234,6 +244,7 @@ public class AccountSettingsActivity extends BasicActivity implements View.OnCli
 
         }
     }
+*/
 
 
 /*    ImageButton imb_product, imb_cart, imb_history, imb_account;

@@ -1,5 +1,8 @@
 package com.example.shop;
 
+
+// אוביקט מסוג מוצר חייב להכיל: שם, קטגוריה, תמונה( כתתובת של תמנונה לאחסון בענן), מחיר ותג
+// לאוביקט מסוג זה יש אופציה להכיל תיאור( לא חובה להיות בעל תיאור)
 public class Product {
     private String name;
     private String category;

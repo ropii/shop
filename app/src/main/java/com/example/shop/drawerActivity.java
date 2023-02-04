@@ -10,6 +10,10 @@ import android.view.MenuItem;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+
+/**
+ *                  לא בשימוש
+ */
 public class drawerActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;

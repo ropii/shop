@@ -100,7 +100,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-
         if (view==btn_signOut_acc){
             openDisconnectDialog();
         }
@@ -533,7 +532,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    //הפעולה המעדכנת את נראות הכפתורים
+    //הפעולה המעדכנת את נראות הכפתורים הקשורים למצב ההתחברות של המשתמש
     public void  setVisibility(){
         if (isSignIn()){
             btn_signUp_acc.setVisibility(View.GONE);
