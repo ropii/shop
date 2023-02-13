@@ -6,14 +6,13 @@
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".drawerActivity"
+    tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
 
 
         >
@@ -46,10 +45,38 @@
 
     <!-- this the navigation view which draws and shows the navigation drawer -->
     <!-- include the menu created in the menu folder -->
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/app_settings" />
+
+
+        <!-- Main content view -->
+        <!-- Navigation drawer view -->
+        <LinearLayout
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/white"
+            >
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_musicOn"
+                android:src="@drawable/ic_baseline_music_note_24"/>
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/btn_musicOf"
+                android:src="@drawable/ic_baseline_music_off_24"/>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

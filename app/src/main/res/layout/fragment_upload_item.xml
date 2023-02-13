@@ -1,121 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#693C6C"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="center"
-    android:gravity="center"
+    android:background="#50143F"
     android:orientation="vertical"
-    tools:context=".UploadItemFragment"
-    >
+    tools:context=".UploadItemFragment">
+
 
     <VideoView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/videoView_uploadF"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        app:layout_constraintDimensionRatio="16:9"
+
         />
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
+
+
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
             <EditText
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/ed_name"
-                android:hint="name"
-                />
-            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="name" />
+
+            <EditText
                 android:id="@+id/ed_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:hint="price"
-                android:inputType="number"
-                />
+                android:inputType="number" />
         </LinearLayout>
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ed_category"
-        android:hint="category"
-        />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ed_description"
-        android:hint="description"
-        />
+        <EditText
+            android:id="@+id/ed_category"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="category" />
 
-    <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/ed_description"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:hint="description" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:columnCount="2">
+
+            <ImageButton
+                android:id="@+id/ib_gallery"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/icon_gallery" />
+
+            <ImageButton
+                android:id="@+id/ib_camera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/icon_camera"
+
+                />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="gallery" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:hint="camera" />
+
+        </GridLayout>
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            />
 
         <ImageButton
+            android:id="@+id/ib_upload"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/icon_gallery"
-            android:id="@+id/ib_gallery"
-            android:layout_marginRight="5dp"
-            />
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/icon_camera"
-            android:id="@+id/ib_camera"
-            android:layout_marginLeft="5dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/icon_upload"
+            android:src="@drawable/icon_upload"
+            android:layout_gravity="center"
 
             />
+
         <TextView
-            android:layout_width="60dp"
-            android:gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="gallery"
-            />
-        <TextView
-            android:layout_width="60dp"
-            android:gravity="center"
-
-            android:layout_height="wrap_content"
-            android:hint="camera"
+            android:layout_gravity="center"
+            android:text="upload"
             />
 
-    </GridLayout>
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/iv_img"
-        />
-
-    <ImageButton
-        android:layout_marginTop="50dp"
-        android:background="@drawable/icon_upload"
-        android:layout_width="60dp"
-        android:id="@+id/ib_upload"
-        android:layout_height="60dp"
-        android:src="@drawable/icon_upload"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="upload"/>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

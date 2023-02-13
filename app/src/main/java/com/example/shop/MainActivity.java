@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,9 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     public DrawerLayout drawerLayout;//
     public ActionBarDrawerToggle actionBarDrawerToggle;//
+    ImageButton btn_musicOf, btn_musicOn;
+    Boolean boolean_music = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +51,10 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
         actionBarDrawerToggle.syncState();//
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //
 
-
-
+        btn_musicOf = findViewById(R.id.btn_musicOf);
+        btn_musicOn = findViewById(R.id.btn_musicOn);
+        btn_musicOf.setOnClickListener(this);
+        btn_musicOn.setOnClickListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new ProductsFragment()).commit();
         chipNavigationBar.setItemSelected(R.id.menu_products,true);
@@ -101,6 +108,7 @@ public class MainActivity extends BasicActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
+
 
 
     }

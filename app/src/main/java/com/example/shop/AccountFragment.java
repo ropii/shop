@@ -81,7 +81,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         Log.d("roi", "onCreateView: ");
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         videoView = view.findViewById(R.id.videoView_accountF);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.account_video_second);
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.settings_small_video);
         videoView.setVideoURI(uri);
         videoView.start();
 

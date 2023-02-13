@@ -90,7 +90,7 @@ public class UploadItemFragment extends Fragment implements View.OnClickListener
         View view= inflater.inflate(R.layout.fragment_upload_item, container, false);
 
         videoView = view.findViewById(R.id.videoView_uploadF);
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.upload_video);
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.upload_small_video);
         videoView.setVideoURI(uri);
         videoView.start();
 

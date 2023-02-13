@@ -89,6 +89,7 @@ public class ProductsFragment extends Fragment {
     // יוצר את הארי- ליסט של המוצרים
     public void createArLs(){
         ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setCancelable(false);
         progressDialog.setTitle("Loading...");
         progressDialog.show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
-    android:layout_centerHorizontal="true"
-    android:layout_gravity="center"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#26205B"
     android:orientation="vertical"
-    tools:context=".AccountFragment"
-    >
+    tools:context=".AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <VideoView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/videoView_accountF"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:layout_constraintDimensionRatio="16:9"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        >
+
     <Button
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="sign up"
+        android:layout_gravity="center"
         android:id="@+id/btn_signUp_acc"
+        android:textColor="#26205B"
+        android:backgroundTint="#FBEAEB"
 
         />
     <Button
-
+        android:layout_gravity="center"
+        android:textColor="#26205B"
+        android:backgroundTint="#FBEAEB"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="sign in"
         android:id="@+id/btn_signIn_acc"
         />
     <Button
-
+        android:textColor="#26205B"
+        android:backgroundTint="#FBEAEB"
         android:layout_width="110dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="sign out"
         android:id="@+id/btn_signOut_acc"
 
         />
     <Button
-
+        android:textColor="#26205B"
+        android:backgroundTint="#FBEAEB"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:text="settings"
+        android:text="info"
+        android:layout_gravity="center"
         android:id="@+id/btn_AccountSettings_acc"
-
         />
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
